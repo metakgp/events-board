@@ -4,7 +4,10 @@ export default function Events() {
   return (
     <div>
       <div>
-        this  is events section 
+        <div className=''>
+        <input type="text" placeholder='search' className='w-full p-2 m-2'/>
+        </div>
+        
       </div>
     </div>
   )
