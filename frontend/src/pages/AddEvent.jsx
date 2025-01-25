@@ -13,7 +13,7 @@ const [description,setDescription]=useState("");
 const [date,setDate]=useState("");
 const [time,setTime]=useState("");
 const [posterurl,setPosterurl]=useState("");
-
+const [tags, setTags]=useState([])
 
 
 const handleSubmit = async (e)=>{
@@ -24,6 +24,7 @@ const handleSubmit = async (e)=>{
     date,
     posterurl,  
     time,
+    tags,
   }
 
   
@@ -36,7 +37,11 @@ const result=await  axios.post("http://localhost:8000/event/add",eventData)
   }
 }
 
-
+const handleTagChange=async (e)=>{
+  const inputTags=e.target.value.split(" ").map((tag)=>tag.trim()).filter((tag)=>tag!=="")
+  setTags(inputTags);
+  console.log(tags);
+}
   return (
     
 
@@ -45,13 +50,16 @@ const result=await  axios.post("http://localhost:8000/event/add",eventData)
       <div>
         <Navbar/>
         <div className="flex  justify-center items-center min-h-screen ">
-          <form action="" className="" onSubmit={handleSubmit}>
+          <form action="" className="" >
             <div className="flex-col  ">
               <div className="mt-4 ">
                 <input className=" p-4 " type="text" placeholder="Title "   name="title" onChange={(e)=>{setTitle(e.target.value)}}/>
               </div>
               <div className="mt-4" name="">
                 <input className="p-4 " type="text" placeholder="poster-url" onChange={(e)=>{setPosterurl(e.target.value)}} />
+              </div>
+              <div className="mt-4" name="">
+                <input className="p-4 " type="text" placeholder="add-tags" onChange={handleTagChange} />
               </div>
               <div className="mt-4 " >
                 
@@ -63,7 +71,7 @@ const result=await  axios.post("http://localhost:8000/event/add",eventData)
                 <input className="p-4" type="time" name="time" onChange={(e)=>{setTime(e.target.value)}} />
               </div>
               <div className="mt-4" >
-                <button className="bg-yellow-300 rounded-xl p-3">
+                <button className="bg-yellow-300 rounded-xl p-3" onClick={handleSubmit}>
                   submit
                   </button>  
                </div>

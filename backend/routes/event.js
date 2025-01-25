@@ -2,7 +2,7 @@ const express=require("express")
 const router=express.Router();
 const Event=require("../models/Event")
 router.post("/add",async (req,res)=>{
-const {title,description,date,posterurl,time}=req.body;
+const {title,description,date,posterurl,time,tags}=req.body;
 
 try{
    const event= await Event.create({
@@ -11,7 +11,10 @@ try{
         posterurl,
         date,
         time,
+        tags,
+       
     })
+    console.log("i am in creating")
     await event.save();
    return res.json({message:"ok"})
 

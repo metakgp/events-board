@@ -27,8 +27,12 @@ const EventSchema=new Schema(
         venue:{
             type:String,
             require:true,
+        },
+        tags:{
+            type:[String],
+            require:false,
         }
-        
+
     }
 )
 
