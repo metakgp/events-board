@@ -15,7 +15,7 @@ const EventSchema=new Schema(
             type: String,
             require:true,
         },
-        posturl:{
+        posterurl:{
 
             type:String,
             require:true,
@@ -24,6 +24,11 @@ const EventSchema=new Schema(
             type: String,
             require:true,
         },
+        venue:{
+            type:String,
+            require:true,
+        }
+        
     }
 )
 

@@ -25,6 +25,27 @@ catch(err){
 
 
 
+router.get("/", async (req,res)=>{
+    try{
+        const events=await Event.find();
+        res.json(events); 
+    }
+    catch (err){
+
+    }
+
+})
+
+router.get("/page/:id",async (req,res)=>{
+    const {id}=req.params;
+    
+    console.log("id",id)
+    const event=await Event.findById(id);
+    console.log("event",event)
+    res.json(event)
+
+})
+
 
 
 module.exports=router;

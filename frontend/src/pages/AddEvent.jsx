@@ -5,7 +5,9 @@ import axios from "axios"
 
 import { useNavigate } from "react-router-dom";
 export default function AddEvent() {
-  const navigate=useNavigate();
+
+
+const navigate=useNavigate();
 const [title,setTitle]=useState("");
 const [description,setDescription]=useState("");
 const [date,setDate]=useState("");
@@ -14,7 +16,7 @@ const [posterurl,setPosterurl]=useState("");
 
 
 
-const handleSubmit=async (e)=>{
+const handleSubmit = async (e)=>{
   e.preventDefault();
   const eventData={
     title,
@@ -23,7 +25,9 @@ const handleSubmit=async (e)=>{
     posterurl,  
     time,
   }
- const result=await axios.post("http://localhost:8000/event/add",eventData)
+
+  
+const result=await  axios.post("http://localhost:8000/event/add",eventData)
   if(result.data.message ==="ok"){
     navigate("/")
   }
