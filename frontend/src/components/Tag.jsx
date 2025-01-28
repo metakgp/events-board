@@ -1,11 +1,9 @@
 import React from 'react'
 
-export default function Tag({name}) {
+export default function Tag({ name }) {
   return (
-    <div>
-      <div className='pr-2  '>
-        {name}
-      </div>
+    <div className="inline-block bg-black text-gray-200 rounded-full px-4 py-2 mb-2 mr-2">
+      {name}
     </div>
-  )
+  );
 }

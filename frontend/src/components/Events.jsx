@@ -21,7 +21,12 @@ export default function Events() {
   useEffect(() => {
     setFilteredEvents(
       events.filter((event) => {
-        return event.title.toLowerCase().includes(searchQuery);
+        return (
+          event.title.toLowerCase().includes(searchQuery) ||
+          event.tags.some((tag) =>
+            tag.toLowerCase().includes(searchQuery)
+          )
+        );
       })
     );
   }, [searchQuery, events]);
@@ -47,8 +52,8 @@ export default function Events() {
     } else if (sortOption === "time") {
       sortedEvents.sort((a, b) => a.time.localeCompare(b.time));
     } else if (sortOption === "date&time") {
-      sortedEvents.sort((a, b) => new Date(b.date) - new Date(a.date));
       sortedEvents.sort((a, b) => a.time.localeCompare(b.time));
+      sortedEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
     }
     setFilteredEvents(sortedEvents);
   };
@@ -60,7 +65,7 @@ export default function Events() {
           <input
             type="text"
             placeholder="search"
-            className="w-full rounded-lg  p-2 m-2"
+            className="w-full rounded-lg  p-2 mr-3"
             onChange={(e) => {
               setSearchQuery(e.target.value.toLowerCase());
             }}
