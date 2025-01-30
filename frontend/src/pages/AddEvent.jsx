@@ -10,6 +10,7 @@ export default function AddEvent() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [posterurl, setPosterurl] = useState("");
+  const [society, setSociety] = useState("");
   const [tags, setTags] = useState([]);
 
   const handleSubmit = async (e) => {
@@ -20,6 +21,7 @@ export default function AddEvent() {
       date,
       posterurl,
       time,
+      society,
       tags,
     };
 
@@ -65,6 +67,15 @@ export default function AddEvent() {
                   type="text"
                   placeholder="Enter poster URL"
                   onChange={(e) => setPosterurl(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Society</label>
+                <input
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:border-transparent"
+                  type="text"
+                  placeholder="Enter society"
+                  onChange={(e) => setSociety(e.target.value)}
                 />
               </div>
               <div>

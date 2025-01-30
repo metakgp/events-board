@@ -3,11 +3,19 @@ import Tag from "./Tag";
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-export default function Eventcard({ id, title, posterurl, date, time, tags }) {
+export default function Eventcard({ id, title, posterurl, date, time,society, tags }) {
   const formatDate=(dateString)=>{
 const dateObj=new Date(dateString)
 return dateObj.toLocaleDateString("en-GB")
   }
+  const formatTime = (time) => {
+    if (!time) return "";
+    return new Date(`1970-01-01T${time}`).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
   const navigate = useNavigate();
   // console.log("id in events card", id);
   const handleClick = async () => {
@@ -25,10 +33,11 @@ return dateObj.toLocaleDateString("en-GB")
               alt=""
             />
           </div>
-          <div className="p-3 text-lg font-mono  text-gray-200">{title}</div>
-          <div className="flex flex-justify-around ">
-            <div className="p-2 text-gray-200 ">  📅Date: <br/>{formatDate(date)}</div>
-            <div className="p-2 text-gray-200"> 🕒Time: <br/>{time}</div>
+          <div className="p-2 text-lg font-roboto  text-gray-200">{title}</div>
+          <div className="p-2 text-md font-sans  text-gray-200">Society: {society}</div>
+          <div className="flex-col flex-justify-around ">
+            <div className="p-1 text-gray-200 ">  📅Date: {formatDate(date)}</div>
+            <div className="p-1 text-gray-200"> 🕒Time: {formatTime(time)}</div>
           </div>
           <div className="flex flex-wrap p-1 text-gray-200">
             {tags.length===0?(

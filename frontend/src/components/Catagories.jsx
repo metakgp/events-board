@@ -14,7 +14,7 @@ export default function Catagories({onSortChange,onCatagoryChange}) {
   
   return (
     <div>
-      <nav className=" bg-black text-white p-4">
+      <nav className=" bg-black text-white p-4 ">
       <div className="flex flex-row-reverse ">
       <select className='text-black bg-white p-1 ml-5 rounded-sm ' onChange={handleCatagoryChange} >
       <option value=""> catagories</option>
@@ -25,9 +25,9 @@ export default function Catagories({onSortChange,onCatagoryChange}) {
       </select>
       <select className='text-black bg-white p-1 rounded-sm' onChange={handleSortChange}>
       <option value=""> Sort By</option>
-      <option value="date"> date </option>
+
       <option value="time">time </option>
-      <option value="date&time">Date & Time </option>
+      
       </select>
      
       </div>

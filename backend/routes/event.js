@@ -2,7 +2,7 @@ const express=require("express")
 const router=express.Router();
 const Event=require("../models/Event")
 router.post("/add",async (req,res)=>{
-const {title,description,date,posterurl,time,tags}=req.body;
+const {title,description,date,posterurl,time,society,tags}=req.body;
 
 try{
    const event= await Event.create({
@@ -11,6 +11,7 @@ try{
         posterurl,
         date,
         time,
+        society,
         tags,
        
     })
