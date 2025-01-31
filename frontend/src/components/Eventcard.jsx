@@ -33,8 +33,8 @@ return dateObj.toLocaleDateString("en-GB")
               alt=""
             />
           </div>
-          <div className="p-2 text-lg font-roboto  text-gray-200">{title}</div>
-          <div className="p-2 text-md font-sans  text-gray-200">Society: {society}</div>
+          <div className="p-2 text-lg font-bold font-roboto  text-gray-200">{title.charAt(0).toUpperCase()+title.slice(1)}</div>
+          <div className="p-2 text-md font-sans font-semibold text-gray-200">Society: {society}</div>
           <div className="flex-col flex-justify-around ">
             <div className="p-1 text-gray-200 ">  📅Date: {formatDate(date)}</div>
             <div className="p-1 text-gray-200"> 🕒Time: {formatTime(time)}</div>

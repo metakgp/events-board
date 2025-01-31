@@ -22,9 +22,13 @@ export default function EventPage() {
 
 
   const makeLinksClickable = (text) => {
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    return text.replace(urlRegex, (url) => `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-blue-600">${url}</a>`);
+    const urlRegex = /(?:https?:\/\/)?([\w.-]+\.[a-z]{2,}(?:\/[\w.-]*)*)/gi;
+    return text.replace(urlRegex, (url) => {
+      const fullUrl = url.startsWith("http") ? url : `https://${url}`;
+      return `<a href="${fullUrl}" target="_blank" rel="noopener noreferrer" class="text-blue-600">${url}</a>`;
+    });
   };
+  
 
   if (!eventDetails) {
     return <div>Loading...</div>;

@@ -28,6 +28,7 @@ export default function Events() {
       } catch (err) {
         console.error(err);
       }
+
     };
     fetchEvents();
   }, []);
@@ -74,6 +75,7 @@ export default function Events() {
   return (
     <div>
       <div>
+      <h1 className="text-3xl font-bold p-4 text-white bg-black">Current  Events</h1>
         <div className="bg-black p-2 ">
           <input
             type="text"
@@ -84,22 +86,23 @@ export default function Events() {
             }}
           />
         </div>
-        <div className="flex justify-around bg-black">
-          <div className="m-3 w-full p-3">
-            <Link
-              to="/archive"
-              className="p-1 rounded-sm bg-white"
-              state={{ events: events }}
-            >
-              Archive
-            </Link>
-          </div>
-          <Catagories
-            onSortChange={handleSortChange}
-            onCatagoryChange={handleCatagoryChange}
-          />
-        </div>
-        <div className="grid grid-cols-5 max-lg:grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-1 bg-black">
+        <div className="flex justify-between items-center bg-black p-3">
+ 
+  <Link
+    to="/archive"
+    className="p-2 font-medium rounded-lg bg-white"
+    state={{ events: events }}
+  >
+    Archive
+  </Link>
+
+  <Catagories
+    onSortChange={handleSortChange}
+    onCatagoryChange={handleCatagoryChange}
+  />
+</div>
+        <div className="grid grid-cols-5 max-lg:grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 max-[380px]:grid-cols-1 max bg-black">
+        
           {filteredEvents.length === 0 ? (
             <p>hi no events yet</p>
           ) : (
