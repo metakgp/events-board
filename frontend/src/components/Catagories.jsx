@@ -16,14 +16,14 @@ export default function Catagories({onSortChange,onCatagoryChange}) {
     <div>
     
       <div className="flex flex-row-reverse ">
-      <select className='text-black p-2  font-medium  rounded-lg bg-white' onChange={handleCatagoryChange} >
+      <select className='p-3 font-medium bg-gray-800 text-white rounded-lg shadow-md hover:bg-gray-700 transition duration-300' onChange={handleCatagoryChange} >
       <option value=""> catagories</option>
       <option value="cultural"> cultural</option>
       <option value="lecture">lecture</option>
       <option value="workshop">workshop</option>
       <option value="selection"> selection</option>
       </select>
-      <select className='text-black p-2 mr-5 font-medium  rounded-lg bg-white' onChange={handleSortChange}>
+      <select className='text-white p-3 mr-5 font-medium  rounded-md  bg-gray-800 shadow-md hove:bg-gray-700 transition duration-300' onChange={handleSortChange}>
       <option value=""> Sort By</option>
 
       <option value="time">time </option>

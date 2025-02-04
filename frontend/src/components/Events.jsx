@@ -75,7 +75,7 @@ export default function Events() {
   return (
     <div>
       <div>
-      <h1 className="text-3xl font-bold p-4 text-white bg-black">Current  Events</h1>
+      <h1 className="text-3xl font-bold p-4 text-white bg-black">LATEST EVENTS</h1>
         <div className="bg-black p-2 ">
           <input
             type="text"
@@ -88,23 +88,24 @@ export default function Events() {
         </div>
         <div className="flex justify-between items-center bg-black p-3">
  
-  <Link
-    to="/archive"
-    className="p-2 font-medium rounded-lg bg-white"
-    state={{ events: events }}
-  >
-    Archive
-  </Link>
+        <Link
+  to="/archive"
+  className="p-3 px-4 font-medium rounded-lg bg-gray-800 text-white shadow-md hover:bg-gray-700 transition duration-300"
+  state={{ events: events }}
+>
+  Archive
+</Link>
+
 
   <Catagories
     onSortChange={handleSortChange}
     onCatagoryChange={handleCatagoryChange}
   />
 </div>
-        <div className="grid grid-cols-5 max-lg:grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 max-[380px]:grid-cols-1 max bg-black">
+        <div className="grid grid-cols-5 max-lg:grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 max-[380px]:grid-cols-1 max">
         
           {filteredEvents.length === 0 ? (
-            <p>hi no events yet</p>
+            <p className="p-4">hi no events yet</p>
           ) : (
             filteredEvents.map((event, index) => (
               <Eventcard

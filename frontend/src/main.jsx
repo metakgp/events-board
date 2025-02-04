@@ -6,6 +6,8 @@ import App from './App.jsx'
 import AddEvent from './pages/AddEvent.jsx'
 import EventPage from './pages/EventPage.jsx'
 import ArchivedEvents from './pages/ArchivedEvents.jsx'
+import Register from './pages/Register.jsx'
+import Signin from './pages/Signin.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
@@ -14,7 +16,8 @@ createRoot(document.getElementById('root')).render(
     <Route path="/add" element={<AddEvent/>}/>
     <Route path="/event-page/:id" element={<EventPage/>}/>
     <Route path='/archive' element={<ArchivedEvents/>}/>
-
+    <Route path='/register' element={<Register/>}/>
+    <Route path='/signin' element={<Signin/>}/>
     
     </Routes>
     </BrowserRouter>
