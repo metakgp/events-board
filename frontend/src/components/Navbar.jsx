@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 export default function Navbar() {
-  const [role, setRole] = useState(null); 
-
+  const navigate=useNavigate()
+  const [role, setRole] = useState(null);
+  const handleLogout=()=>{
+    setRole(null);
+    localStorage.removeItem("role")
+    navigate("/")
+  }
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
-    setRole(storedRole); 
+    setRole(storedRole);
   }, []);
 
   return (
@@ -21,14 +26,23 @@ export default function Navbar() {
         >
           Register
         </Link>
-        <Link
-          to="/signin"
-          className="hover:text-black hover:bg-cyan-400 rounded-md cursor-pointer p-2 transition duration-400"
-        >
-          Signin
-        </Link>
-
-        {role === "society" && (
+        {!role && (
+          <Link
+            to="/signin"
+            className="hover:text-black hover:bg-cyan-400 rounded-md cursor-pointer p-2 transition duration-400"
+          >
+            Signin
+          </Link>
+        )}
+        {role === "admin" && (
+          <Link
+            to="/adminpage"
+            className="hover:text-black hover:bg-cyan-400 rounded-md cursor-pointer p-2 transition duration-400"
+          >
+            AdminPage
+          </Link>
+        )}
+        {(role === "society" || role==="admin" ) && (
           <Link
             to="/add"
             className="hover:text-black hover:bg-cyan-400 rounded-md cursor-pointer p-2 transition duration-400"
@@ -43,6 +57,15 @@ export default function Navbar() {
         >
           Home
         </Link>
+        {role &&(
+          
+        <Link
+      onClick={handleLogout}
+        className="hover:text-black hover:bg-cyan-400 rounded-md cursor-pointer p-2 transition duration-400"
+      >
+        Logout
+      </Link>
+        )}
       </div>
     </nav>
   );

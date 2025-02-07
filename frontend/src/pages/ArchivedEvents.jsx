@@ -19,7 +19,7 @@ export default function ArchivedEvents() {
     <div>
       <Navbar />
       <div className="p-4">
-        <h2 className="text-3xl font-bold">ARCHIVED EVENTS</h2>
+        <h2 className="text-3xl font-bold">Archived Events</h2>
         {pastEvents.length === 0 ? (
           <p>No past events to show.</p>
         ) : (

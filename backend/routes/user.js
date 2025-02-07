@@ -7,6 +7,8 @@ router.post("/signin", async (req, res) => {
   const { mail, password } = req.body;
   try {
     const admin = await User.findOne({ mail: mail, role: "admin" });
+    console.log("hi")
+    console.log(admin)
     if (admin) {
       if (password === admin.password) {
         return res.json({ message: "ok", role: "admin" });
@@ -30,8 +32,9 @@ router.post("/signin", async (req, res) => {
       }
     }
   } catch (err) {
-    console.log("something went wrong in signin");
+    console.log(err);
   }
 });
+
 
 module.exports = router;

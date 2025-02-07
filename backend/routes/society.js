@@ -24,6 +24,22 @@ router.post("/create",async (req,res)=>{
     }
 })
 
-
+router.get("/pending",async (req,res)=>{
+    try{
+      const societies=await Society.find({status:"pending"})
+    //  console.log(societies)
+       res.json(societies)
+      
+    }
+    catch(err){
+      
+    }
+  })
+router.post("/approve",async (req,res)=>{
+  const {id}=req.body;
+  await Society.findByIdAndUpdate(id,{status:"accepted"})
+return res.json({message:"ok"});
+  
+})
 
 module.exports=router;
