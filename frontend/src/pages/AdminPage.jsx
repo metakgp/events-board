@@ -23,12 +23,12 @@ export default function AdminPage() {
 
   
   return (
-    <div>
+    <div className="bg-black min-h-screen">
       <div>
         <Navbar /> 
       </div>
       <div>
-        <h1 className="p-4 text-3xl font-bold">
+        <h1 className="p-4 text-3xl font-bold  text-white">
       Pending societies
         </h1>
       </div>
@@ -36,7 +36,7 @@ export default function AdminPage() {
 
         
         { (pendingSocieties.length===0)?(
-          <p className="p-4">  No pending societies</p>
+          <p className="p-4 text-white">  No pending societies</p>
         ):(pendingSocieties.map((soc) => (
           <SocietyCard
           id={soc._id}

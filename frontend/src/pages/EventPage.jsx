@@ -37,11 +37,11 @@ export default function EventPage() {
   return (
     <div>
       <Navbar />
-      <div className="flex ">
-      <div className="p-5 w-3/5">
-        <h1 className="text-5xl p-3 font-semibold">{eventDetails.title.charAt(0).toUpperCase()+eventDetails.title.slice(1)}</h1>
+      <div className="flex  bg-black min-h-screen">
+      <div className="p-5 w-3/5 ">
+        <h1 className="text-5xl p-3 font-semibold text-white">{eventDetails.title.charAt(0).toUpperCase()+eventDetails.title.slice(1)}</h1>
         <p
-          className="text-xl p-4 font-poppins"
+          className="text-xl p-4 font-poppins text-white"
           dangerouslySetInnerHTML={{
             __html: makeLinksClickable(eventDetails.description).replace(/\n/g, "<br>"),
           }}

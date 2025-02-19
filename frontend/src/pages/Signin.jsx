@@ -32,17 +32,17 @@ export default function Signin() {
       <div>
         <Navbar />
       </div>
-      <div className="bg-gray-100 flex items-center justify-center min-h-screen">
-        <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+      <div className="bg-black flex text-white items-center justify-center min-h-screen">
+        <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-lg">
           <h2 className="text-2xl font-bold mb-4 text-center">Signin</h2>
           <form>
             <div className="mb-4">
-              <label className="block text-gray-700 font-semibold mb-2">
+              <label className="block text-white font-semibold mb-2">
                 Mail
               </label>
               <input
                 type="text"
-                className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full  p-2 border text-black border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 onChange={(e) => {
                   setMail(e.target.value);
                 }}
@@ -50,12 +50,12 @@ export default function Signin() {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700 font-semibold mb-2">
+              <label className="block text-white font-semibold mb-2">
                 password
               </label>
               <input
                 type="email"
-                className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full text-black p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
@@ -65,7 +65,7 @@ export default function Signin() {
 
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600"
+              className="w-full bg-gray-900 text-white p-2 font-semibold rounded-lg hover:bg-white hover:text-black transition duration-300"
               onClick={handleSubmit}
             >
               Submit

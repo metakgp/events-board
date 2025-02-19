@@ -102,10 +102,10 @@ export default function Events() {
     onCatagoryChange={handleCatagoryChange}
   />
 </div>
-        <div className="grid grid-cols-5 max-lg:grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 max-[380px]:grid-cols-1 max">
+        <div className="grid grid-cols-5 max-lg:grid-cols-4 max-md:grid-cols-3 bg-black min-h-screen max-sm:grid-cols-2 max-[380px]:grid-cols-1 max">
         
           {filteredEvents.length === 0 ? (
-            <p className="p-4">Hi no events yet</p>
+            <p className="p-4 text-white">Hi no events yet</p>
           ) : (
             filteredEvents.map((event, index) => (
               <Eventcard
