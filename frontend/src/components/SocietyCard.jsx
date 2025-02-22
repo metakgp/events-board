@@ -13,7 +13,7 @@ const response=await axios.post("http://localhost:8000/society/approve",{id});
 }
   return (
     <div>
-      <div className="bg-gray-800 text-white rounded-lg m-4 p-4">
+      <div className="bg-[#212020] text-white rounded-lg m-4 p-4">
         <div className="font-semibold text-2xl mb-2">Society: {name}</div>
         
         
@@ -24,7 +24,7 @@ const response=await axios.post("http://localhost:8000/society/approve",{id});
             <div className="font-poppins font-md">Note: {description}</div>
           </div>
 
-          <div className=" text-white font-md bg-green-600 px-4 py-2 rounded-lg cursor-pointer hover:bg-green-500" onClick={handleApprove}>
+          <div className=" text-white font-md bg-black px-4 py-2 rounded-lg cursor-pointer hover:bg-white hover:text-black transition duration-300" onClick={handleApprove}>
             Approve
           </div>
         </div>

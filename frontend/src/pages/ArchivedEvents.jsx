@@ -18,7 +18,7 @@ export default function ArchivedEvents() {
   return (
     <div>
       <Navbar />
-      <div className="p-4 bg-black min-h-screen">
+      <div className="p-4 bg-[#0b0b0b] min-h-screen">
         <h2 className="text-3xl font-bold text-white ">Archived Events</h2>
         {pastEvents.length === 0 ? (
           <p className='text-white my-4'>No past events to show.</p>

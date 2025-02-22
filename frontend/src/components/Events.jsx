@@ -75,8 +75,8 @@ export default function Events() {
   return (
     <div>
       <div>
-      <h1 className="text-3xl font-bold p-4 text-white bg-black">Latest Events</h1>
-        <div className="bg-black p-2 ">
+      <h1 className="text-3xl font-bold p-4 text-white bg-[#0b0b0b]">Latest Events</h1>
+        <div className="bg-[#0b0b0b] p-2 ">
           <input
             type="text"
             placeholder="search"
@@ -86,11 +86,11 @@ export default function Events() {
             }}
           />
         </div>
-        <div className="flex justify-between items-center bg-black p-3">
+        <div className="flex justify-between items-center bg-[#0b0b0b] p-3">
  
         <Link
   to="/archive"
-  className="p-3 px-4 font-medium rounded-lg bg-gray-800 text-white shadow-md hover:bg-gray-700 transition duration-300"
+  className="p-3 px-4 font-medium rounded-lg bg-[#302e2e] text-white shadow-md hover:bg-white hover:text-black transition duration-300"
   state={{ events: events }}
 >
   Archive
@@ -102,7 +102,7 @@ export default function Events() {
     onCatagoryChange={handleCatagoryChange}
   />
 </div>
-        <div className="grid grid-cols-5 max-lg:grid-cols-4 max-md:grid-cols-3 bg-black min-h-screen max-sm:grid-cols-2 max-[380px]:grid-cols-1 max">
+        <div className="grid grid-cols-5 max-lg:grid-cols-4 max-md:grid-cols-3 bg-[#0b0b0b] min-h-screen max-sm:grid-cols-2 max-[380px]:grid-cols-1 max">
         
           {filteredEvents.length === 0 ? (
             <p className="p-4 text-white">Hi no events yet</p>

@@ -22,14 +22,14 @@ export default function Navbar() {
       <div className="flex space-x-8">
         <Link
           to="/register"
-          className="hover:text-black hover:bg-cyan-400 rounded-md cursor-pointer p-2 transition duration-400"
+          className="hover:text-black hover:bg-[#f5f3f3]  rounded-md cursor-pointer p-2 transition duration-400"
         >
           Register
         </Link>
         {!role && (
           <Link
             to="/signin"
-            className="hover:text-black hover:bg-cyan-400 rounded-md cursor-pointer p-2 transition duration-400"
+            className="hover:text-black hover:bg-[#f5f3f3] rounded-md cursor-pointer p-2 transition duration-400"
           >
             Signin
           </Link>
@@ -37,7 +37,7 @@ export default function Navbar() {
         {role === "admin" && (
           <Link
             to="/adminpage"
-            className="hover:text-black hover:bg-cyan-400 rounded-md cursor-pointer p-2 transition duration-400"
+            className="hover:text-black hover:bg-[#f5f3f3] rounded-md cursor-pointer p-2 transition duration-400"
           >
             AdminPage
           </Link>
@@ -45,7 +45,7 @@ export default function Navbar() {
         {(role === "society" || role==="admin" ) && (
           <Link
             to="/add"
-            className="hover:text-black hover:bg-cyan-400 rounded-md cursor-pointer p-2 transition duration-400"
+            className="hover:text-black hover:bg-[#f5f3f3] rounded-md cursor-pointer p-2 transition duration-400"
           >
             Add Event
           </Link>
@@ -53,7 +53,7 @@ export default function Navbar() {
 
         <Link
           to="/"
-          className="hover:text-black hover:bg-cyan-400 rounded-md cursor-pointer p-2 transition duration-400"
+          className="hover:text-black hover:bg-[#f5f3f3] rounded-md cursor-pointer p-2 transition duration-400"
         >
           Home
         </Link>
@@ -61,7 +61,7 @@ export default function Navbar() {
           
         <Link
       onClick={handleLogout}
-        className="hover:text-black hover:bg-cyan-400 rounded-md cursor-pointer p-2 transition duration-400"
+        className="hover:text-black hover:bg-[#f5f3f3] rounded-md cursor-pointer p-2 transition duration-400"
       >
         Logout
       </Link>

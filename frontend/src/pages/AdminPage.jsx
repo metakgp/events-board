@@ -23,7 +23,7 @@ export default function AdminPage() {
 
   
   return (
-    <div className="bg-black min-h-screen">
+    <div className="bg-[#0b0b0b] min-h-screen">
       <div>
         <Navbar /> 
       </div>

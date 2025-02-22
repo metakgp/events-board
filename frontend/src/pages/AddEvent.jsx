@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import Error from "../components/Error";
 export default function AddEvent() {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
@@ -14,7 +14,7 @@ export default function AddEvent() {
   const [posterurl, setPosterUrl] = useState("");
   const [society, setSociety] = useState("");
   const [tags, setTags] = useState([]);
-
+  const [errorMessage,setErrorMessage]=useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     let posterPath = posterurl;
@@ -55,7 +55,10 @@ export default function AddEvent() {
     if (result.data.message === "ok") {
       navigate("/");
     } else {
-      navigate("/add");
+      setErrorMessage(result.data.message);
+      window.scrollTo(0,0);
+      
+
     }
   };
 
@@ -72,8 +75,9 @@ export default function AddEvent() {
     <>
       <div>
         <Navbar />
-        <div className="flex justify-center items-center min-h-screen bg-black">
-          <form className="w-full max-w-md bg-gray-800 shadow-md rounded-lg p-6 my-2">
+        {errorMessage && <Error ErrorMessage={errorMessage}/>}
+        <div className="flex justify-center items-center min-h-screen bg-[#0b0b0b]">
+          <form className="w-full max-w-md bg-[#212020] shadow-md rounded-lg p-6 my-2">
             <h2 className="text-2xl font-bold mb-6  text-white text-center">
               Add Event
             </h2>
@@ -207,7 +211,7 @@ export default function AddEvent() {
               </div>
               <div>
                 <button
-                  className="w-full bg-gray-900 text-white font-bold py-2 px-4 rounded-lg hover:bg-white hover:text-black transition duration-300 "
+                  className="w-full bg-black text-white font-bold py-2 px-4 rounded-lg hover:bg-white hover:text-black transition duration-300 "
                   onClick={handleSubmit}
                 >
                   Submit
