@@ -46,6 +46,7 @@ export default function AdminPage() {
             phone={soc.phone}
             description={soc.description}
             onApprove={()=>setRefresh((prev)=>!prev)}
+            onDecline={()=>setRefresh((prev)=>!prev)}
           />
         )))}
       

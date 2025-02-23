@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt=require("bcrypt")
 const Society = require("../models/Society");
 const User = require("../models/User");
 
@@ -15,7 +16,8 @@ router.post("/signin", async (req, res) => {
     // console.log("hi")
     // console.log(admin)
     if (admin) {
-      if (password === admin.password) {
+      const isAdmin=await  bcrypt.compare(password, admin.password)
+      if (isAdmin) {
         return res.json({ message: "ok", role: "admin" });
       } else {
         return res.json({ message: "Incorrect password" });
@@ -27,7 +29,8 @@ router.post("/signin", async (req, res) => {
         return res.json({ message: "Society not registered" });
       }
       if (society.status === "accepted") {
-        if (password === society.password) {
+        const isSoc= await bcrypt.compare(password,society.password)
+        if (isSoc) {
           return res.json({ message: "ok", role: "society" });
         } else {
           return res.json({ message: " Incorrect password  " });

@@ -14,7 +14,7 @@ router.post("/create", async (req, res) => {
       return res.json({ message: "Society already exists" }); 
     }
 
-    const society = await Society.create({
+    const society = new Society({
       name,
       mail,
       phone,
@@ -22,6 +22,8 @@ router.post("/create", async (req, res) => {
       status,
       password,
     });
+ 
+    await society.save();
 
     return res.json({ message: "ok" }); 
   } catch (err) {
@@ -55,5 +57,23 @@ router.post("/approve", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+router.post("/decline", async (req, res) => {
+  const { id } = req.body;
+
+  try {
+    const updatedSociety = await Society.findByIdAndUpdate(id, { status: "rejected" });
+
+    if (!updatedSociety) {
+      return res.json({ message: "Society not found" }); 
+    }
+
+    return res.status(200).json({ message: "ok" }); 
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 
 module.exports = router;
