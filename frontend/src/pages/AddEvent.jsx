@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Error from "../components/Error";
+import crossMark from "/assets/cross.png"
 export default function AddEvent() {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
@@ -13,8 +14,30 @@ export default function AddEvent() {
   const [time, setTime] = useState("");
   const [posterurl, setPosterUrl] = useState("");
   const [society, setSociety] = useState("");
-  const [tags, setTags] = useState([]);
+  const [selectedTags,setSelectedTags]=useState([]);
   const [errorMessage,setErrorMessage]=useState("");
+
+  //predefined tags
+  const availableTags=[
+    "Cultural",
+    "Lecture",
+    "Tech",
+    "Selection",
+    "Hall",
+    "Competition",
+
+
+  ];
+const handleTagSelect=(tag)=>{
+  if(!selectedTags.includes(tag)){
+    setSelectedTags([...selectedTags,tag]);
+  }
+}
+const handleRemoveTag=(tag)=>{
+  setSelectedTags(selectedTags.filter((t)=>t!=tag));
+}
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     let posterPath = posterurl;
@@ -45,7 +68,7 @@ export default function AddEvent() {
       posterurl: posterPath,
       time,
       society,
-      tags,
+      selectedTags,
     };
 
     const result = await axios.post(
@@ -62,14 +85,6 @@ export default function AddEvent() {
     }
   };
 
-  const handleTagChange = async (e) => {
-    const inputTags = e.target.value
-      .split(" ")
-      .map((tag) => tag.trim())
-      .filter((tag) => tag !== "");
-    setTags(inputTags);
-    console.log(tags);
-  };
 
   return (
     <>
@@ -166,13 +181,50 @@ export default function AddEvent() {
                 <label className="block text-sm font-medium text-white mb-2">
                   Tags
                 </label>
-                <input
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent"
-                  type="text"
-                  placeholder="Enter tags separated by spaces"
-                  onChange={handleTagChange}
-                />
-              </div>
+                <div className="flex flex-wrap gap-2">
+                  {availableTags.map((tag) => (
+                    <button
+                      key={tag}
+                      type="button"
+                      onClick={() => handleTagSelect(tag)}
+                      className={`px-3 py-1 rounded-full text-sm ${
+                        selectedTags.includes(tag)
+                          ? "bg-blue-500 text-white"
+                          : "bg-gray-600 text-white hover:bg-gray-400"
+                      }`}
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+                
+                <label className="block text-sm font-medium text-white mt-4">
+                  Selected
+                </label>
+                <div className="mt-3 flex flex-wrap gap-2">
+
+                  {selectedTags.length===0?
+                  (<p className="text-white text-sm "> No tags selected</p>):(
+                  
+                    selectedTags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="bg-gray-600 text-white hover:bg-white hover:text-black transiton duration-300 cursior-pointer px-3 py-1 rounded-full text-sm flex items-center cursor-pointer"
+                      >
+                        {tag}
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveTag(tag)}
+                          className="ml-2 text-white hover:text-black focus:outline-none "
+                        >
+                          <img src={crossMark} alt="Remove" className="w-5 inline" />
+                        </button>
+                      </span>
+                    ))   
+                  )
+                 }
+                </div>
+                </div>
               <div>
                 <label className="block text-sm font-medium text-white mb-2">
                   Description

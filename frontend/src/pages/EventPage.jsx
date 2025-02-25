@@ -37,17 +37,17 @@ export default function EventPage() {
   return (
     <div>
       <Navbar />
-      <div className="flex  bg-gradient-to-bl bg-[#212020] min-h-screen">
+      <div className="flex  bg-gradient-to-bl bg-[#212020] min-h-screen ">
       <div className="p-5 w-3/5  ">
-        <h1 className="text-5xl p-3 font-semibold text-white">{eventDetails.title.charAt(0).toUpperCase()+eventDetails.title.slice(1)}</h1>
+        <h1 className="text-5xl p-3 font-semibold text-white  ">{eventDetails.title.charAt(0).toUpperCase()+eventDetails.title.slice(1)}</h1>
         <p
-          className="text-xl p-4 font-poppins text-white"
+          className="text-xl p-4 font-poppins  text-white  animate-fadeIn"
           dangerouslySetInnerHTML={{
             __html: makeLinksClickable(eventDetails.description).replace(/\n/g, "<br>"),
           }}
         ></p>
       </div>
-      <div className=" m-4 pt-10 w-2/5 ">
+      <div className=" m-4 pt-10 w-2/5  ">
         <img className="w-full" src={eventDetails.posterurl} alt="Event Poster" />
       </div>
       </div>

@@ -6,6 +6,18 @@ export default {
   ],
   theme: {
     extend: {
+      animation: {
+        fadeIn: "fadeIn 1s ease-in forwards",
+      },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+      },
+
+
+
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],

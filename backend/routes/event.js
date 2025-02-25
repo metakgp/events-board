@@ -22,7 +22,7 @@ router.post("/upload", upload.single("poster"), (req, res) => {
 });
 
 router.post("/add", async (req, res) => {
-  const { title, description, date, posterurl, time, society, tags } = req.body;
+  const { title, description, date, posterurl, time, society, selectedTags } = req.body;
 
   try {
     if (
@@ -32,7 +32,7 @@ router.post("/add", async (req, res) => {
       !posterurl ||
       !time ||
       !society ||
-      !tags
+      !selectedTags
     ) {
       return res.json({ message: "All fields are required" });
     }
@@ -44,7 +44,7 @@ router.post("/add", async (req, res) => {
       date,
       time,
       society,
-      tags,
+      tags:selectedTags,
     });
 
     // console.log("i am in creating")

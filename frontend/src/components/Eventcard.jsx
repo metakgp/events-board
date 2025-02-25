@@ -33,17 +33,17 @@ return dateObj.toLocaleDateString("en-GB")
               alt=""
             />
           </div>
-          <div className="p-2 text-lg font-bold font-roboto  text-gray-200">{title.charAt(0).toUpperCase()+title.slice(1)}</div>
-          <div className="p-2 text-md font-sans font-semibold text-gray-200">Society: {society}</div>
+          <div className="p-2 text-2xl font-bold font-roboto  text-gray-200 truncate overflow-hidden whitespace-nowrap">{title.charAt(0).toUpperCase()+title.slice(1)}</div>
+          <div className="p-2  text-md font-sans font-semibold text-gray-200">Society: {society}</div>
           <div className="flex-col flex-justify-around ">
-            <div className="p-1 text-gray-200 ">  📅Date: {formatDate(date)}</div>
-            <div className="p-1 text-gray-200"> 🕒Time: {formatTime(time)}</div>
+            <div className="px-2 py-1 text-gray-200 ">  📅Date: {formatDate(date)}</div>
+            <div className="px-2 py-1 text-gray-200"> 🕒Time: {formatTime(time)}</div>
           </div>
-          <div className="flex flex-wrap p-1 text-gray-200">
+          <div className="flex flex-nowrap p-1  overflow-hidden text-gray-200 ">
             {tags.length===0?(
-               <p className="px-4 py-2 mb-2 mr-2  bg-black text-gray-200 rounded-full">no tags</p> 
+               <p className="px-4 py-2 mb-2 mr-2  bg-black text-gray-200 rounded-full">No tags</p> 
             ):(
-                tags.map((tag,index)=>{
+                tags.slice(0,2).map((tag,index)=>{
                    return <Tag key={index} name={tag}/>
                 })
             )}

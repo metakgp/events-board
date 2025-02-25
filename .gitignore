@@ -1,4 +1,6 @@
 # Garbage & not required config files
 .DS_Store
 .vscode
-node-modules/
+frontend/node_modules/
+backend/node_modules/
+
