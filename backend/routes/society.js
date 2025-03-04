@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Society = require("../models/Society");
-
+const verifyToken=require("../utils/auth");
+const { verify } = require("jsonwebtoken");
 router.post("/create", async (req, res) => {
   try {
     const { name, mail, phone, description, status, password } = req.body;
@@ -31,17 +32,18 @@ router.post("/create", async (req, res) => {
   }
 });
 
-router.get("/pending", async (req, res) => {
+router.get("/pending", verifyToken,async (req, res) => {
   try {
-    const societies = await Society.find({ status: "pending" });
-    res.status(200).json(societies); 
+    const pendingSocieties = await Society.find({ status: "pending" });
+  return   res.status(200).json({message:"ok",pendingSocieties}); 
   } catch (err) {
     console.log(err);
-    res.json({ message: "Internal server error" });
+  return   res.json({ message: "Internal server error" });
   }
 });
 
 router.post("/approve", async (req, res) => {
+  console.log("this is the admin user ",req.user);
   const { id } = req.body;
 
   try {

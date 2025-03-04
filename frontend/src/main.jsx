@@ -10,7 +10,8 @@ import Register from "./pages/Register.jsx";
 import Signin from "./pages/Signin.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
-
+import Dashboard from "./pages/Dashboard.jsx";
+import EditPage from "./pages/EditPage.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
@@ -24,7 +25,17 @@ createRoot(document.getElementById("root")).render(
             </PrivateRoute>
           }
         />
+          <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute allowedRoles={["admin","society"]}>
+              
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
         <Route path="/event-page/:id" element={<EventPage />} />
+        <Route path="/edit/:id" element={<EditPage />} />
         <Route path="/archive" element={<ArchivedEvents />} />
         <Route path="/register" element={<Register />} />
         <Route path="/signin" element={<Signin />} />

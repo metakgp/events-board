@@ -1,10 +1,14 @@
 import { Navigate } from "react-router-dom";
-
+import { jwtDecode } from "jwt-decode";
 const PrivateRoute = ({ children, allowedRoles }) => {
-  const role = localStorage.getItem("role");
+  const token = localStorage.getItem("userData");
+  if(!token){
+    return <Navigate to="/signin" />;
+  }
+  const user=jwtDecode(token);
 
   
-  if (!role || !allowedRoles.includes(role)) {
+  if (!user || !allowedRoles.includes(user.role)) {
     return <Navigate to="/signin" />;
   }
 

@@ -2,20 +2,40 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import SocietyCard from "../components/SocietyCard";
+
+import { useNavigate } from "react-router-dom";
 export default function AdminPage() {
   const [pendingSocieties, setPendingSocieties] = useState([]);
   const [refresh,setRefresh]=useState(false);
-
+  const navigate=useNavigate();
   useEffect(() => {
     const getPendingSocieties = async () => {
+
       try {
+        const token=localStorage.getItem("userData")
+        const authHeader = token ? `Bearer ${token}` : "";
         const response = await axios.get(
           "http://localhost:8000/society/pending"
-        );
-        setPendingSocieties(response.data);
-        console.log(response.data);
-        // console.log("hi i am geting pending societies!")
-      } catch (err) {}
+        ,{
+          headers:{
+            Authorization:authHeader
+          },
+        });
+
+if(response.data.message==="ok"){
+  setPendingSocieties(response.data.pendingSocieties);
+  console.log(response.data);
+  // console.log("hi i am geting pending societies!")
+}
+else{
+  console.log("Error fetching pending societies:", err);
+  navigate("/signin");
+}
+
+        
+      } catch (err) {
+console.log(err);
+      }
     };
     getPendingSocieties();
   }, [refresh]);

@@ -23,8 +23,9 @@ export default function Signin() {
         userData
       );
       if (response.data.message==="ok") {
-        localStorage.setItem("role",response.data.role )
-        
+       
+        localStorage.setItem("userData",response.data.token);
+
         navigate("/");
       } else {
         console.log("hi this is the message",response.data.message)

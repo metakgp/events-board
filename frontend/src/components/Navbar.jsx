@@ -1,17 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import {jwtDecode} from "jwt-decode";
+
 import { useNavigate } from "react-router-dom";
 export default function Navbar() {
+ 
   const navigate=useNavigate()
-  const [role, setRole] = useState(null);
+  const [user, setUser] = useState(null);
   const handleLogout=()=>{
-    setRole(null);
-    localStorage.removeItem("role")
+    setUser(null);
+    localStorage.removeItem("userData")
     navigate("/")
   }
   useEffect(() => {
-    const storedRole = localStorage.getItem("role");
-    setRole(storedRole);
+    
+    const token=localStorage.getItem("userData")
+    
+    if(token){
+      try{
+        const userData=jwtDecode(token);
+        console.log(userData);
+        setUser(userData)
+      }
+      catch(err){
+        console.error("invalid token")
+        localStorage.removeItem("userData")
+        setUser(null);
+      }
+
+    }
+    
+    
   }, []);
 
   return (
@@ -20,13 +39,13 @@ export default function Navbar() {
         <span className="font-bold text-white text-lg">metaKGP</span>
       </div>
       <div className="flex space-x-8">
-        <Link
+       { !user && (<Link
           to="/register"
           className="hover:text-black hover:bg-[#f5f3f3]  rounded-md cursor-pointer p-2 transition duration-400"
         >
           Register
-        </Link>
-        {!role && (
+        </Link>)}
+        {!user && (
           <Link
             to="/signin"
             className="hover:text-black hover:bg-[#f5f3f3] rounded-md cursor-pointer p-2 transition duration-400"
@@ -34,7 +53,7 @@ export default function Navbar() {
             Signin
           </Link>
         )}
-        {role === "admin" && (
+        {user?.role === "admin" && (
           <Link
             to="/adminpage"
             className="hover:text-black hover:bg-[#f5f3f3] rounded-md cursor-pointer p-2 transition duration-400"
@@ -42,12 +61,20 @@ export default function Navbar() {
             AdminPage
           </Link>
         )}
-        {(role === "society" || role==="admin" ) && (
+        {(user?.role === "society" || user?.role==="admin" ) && (
           <Link
             to="/add"
             className="hover:text-black hover:bg-[#f5f3f3] rounded-md cursor-pointer p-2 transition duration-400"
           >
             Add Event
+          </Link>
+        )}
+        {(user?.role === "society" || user?.role==="admin" ) && (
+          <Link
+            to="/dashboard"
+            className="hover:text-black hover:bg-[#f5f3f3] rounded-md cursor-pointer p-2 transition duration-400"
+          >
+            Dashboard
           </Link>
         )}
 
@@ -57,7 +84,7 @@ export default function Navbar() {
         >
           Home
         </Link>
-        {role &&(
+        {user?.role &&(
           
         <Link
       onClick={handleLogout}

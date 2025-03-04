@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt=require("bcrypt")
+const jwt=require("jsonwebtoken")
+const secretKey="secret"
 const Society = require("../models/Society");
 const User = require("../models/User");
 
@@ -18,7 +20,9 @@ router.post("/signin", async (req, res) => {
     if (admin) {
       const isAdmin=await  bcrypt.compare(password, admin.password)
       if (isAdmin) {
-        return res.json({ message: "ok", role: "admin" });
+        const token=await jwt.sign({mail,role:"admin"},secretKey,{expiresIn:'24h'});
+        console.log("hi bro this is my token ",token);
+        return res.json({ message: "ok", token });
       } else {
         return res.json({ message: "Incorrect password" });
       }
@@ -31,7 +35,8 @@ router.post("/signin", async (req, res) => {
       if (society.status === "accepted") {
         const isSoc= await bcrypt.compare(password,society.password)
         if (isSoc) {
-          return res.json({ message: "ok", role: "society" });
+          const token=await jwt.sign({mail,role:"society"},secretKey,{expiresIn:"24h"})
+          return res.json({ message: "ok",token});
         } else {
           return res.json({ message: " Incorrect password  " });
         }

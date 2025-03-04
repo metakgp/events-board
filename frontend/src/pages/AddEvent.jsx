@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Error from "../components/Error";
 import crossMark from "/assets/cross.png"
+import { jwtDecode } from "jwt-decode";
 export default function AddEvent() {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
@@ -25,6 +26,7 @@ export default function AddEvent() {
     "Selection",
     "Hall",
     "Competition",
+    "Club",
 
 
   ];
@@ -32,6 +34,10 @@ const handleTagSelect=(tag)=>{
   if(!selectedTags.includes(tag)){
     setSelectedTags([...selectedTags,tag]);
   }
+  else{
+    setSelectedTags(selectedTags.filter((t)=>t!=tag));
+  }
+
 }
 const handleRemoveTag=(tag)=>{
   setSelectedTags(selectedTags.filter((t)=>t!=tag));
@@ -40,6 +46,10 @@ const handleRemoveTag=(tag)=>{
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+      const token = localStorage.getItem("userData");
+      const user=jwtDecode(token);
+      const createdBy=user.mail;
+      const authHeader = token ? `Bearer ${token}` : "";
     let posterPath = posterurl;
 
     if (posterOption === "file" && posterFile) {
@@ -51,7 +61,7 @@ const handleRemoveTag=(tag)=>{
           "http://localhost:8000/event/upload",
           formData,
           {
-            headers: { "Content-Type": "multipart/form-data" },
+            headers: { "Content-Type": "multipart/form-data",Authorization:authHeader ,},
           }
         );
         posterPath = uploadRes.data.imageUrl;
@@ -68,12 +78,15 @@ const handleRemoveTag=(tag)=>{
       posterurl: posterPath,
       time,
       society,
+      createdBy,
       selectedTags,
     };
 
-    const result = await axios.post(
+  const result = await axios.post(
       "http://localhost:8000/event/add",
-      eventData
+      eventData,{
+        headers:{Authorization:authHeader}
+      }
     );
     if (result.data.message === "ok") {
       navigate("/");
@@ -187,6 +200,7 @@ const handleRemoveTag=(tag)=>{
                       key={tag}
                       type="button"
                       onClick={() => handleTagSelect(tag)}
+                      
                       className={`px-3 py-1 rounded-full text-sm ${
                         selectedTags.includes(tag)
                           ? "bg-blue-500 text-white"
