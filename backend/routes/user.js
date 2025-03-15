@@ -1,8 +1,10 @@
 const express = require("express");
+require('dotenv').config({path:'.././.env'});
 const router = express.Router();
 const bcrypt=require("bcrypt")
 const jwt=require("jsonwebtoken")
-const secretKey="secret"
+
+const secretKey=process.env.JWT_SECRET||"secret";
 const Society = require("../models/Society");
 const User = require("../models/User");
 
