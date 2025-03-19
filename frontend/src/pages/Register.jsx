@@ -68,12 +68,12 @@ const phoneRegx=/^\+?[1-9]\d{1,14}$/;
 
       <div>
         <div className="bg-[#0b0b0b] flex items-center justify-center min-h-screen">
-          <div className="bg-[#212020] p-6 rounded-lg shadow-lg w-full max-w-lg">
+          <div className="bg-[#212020] p-6 m-3 rounded-lg shadow-lg w-full max-w-lg">
             <h2 className="text-2xl text-white  font-bold mb-4 text-center">
               Register Society
             </h2>
             <form >
-              <div className="mb-4">
+              <div className="mb-4 ">
                 <label className="block text-white font-semibold mb-2">
                   Society Name
                 </label>

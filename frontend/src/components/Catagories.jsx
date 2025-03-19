@@ -1,53 +1,53 @@
 import React from "react";
 
-export default function Catagories({ onSortChange, onCatagoryChange }) {
+export default function Categories({ onSortChange, onCategoryChange }) {
   const handleSortChange = (e) => {
+    e.stopPropagation(); 
     const sortOption = e.target.value;
     onSortChange(sortOption);
   };
-  const handleCatagoryChange = (e) => {
-    const Catagory = e.target.value;
-    onCatagoryChange(Catagory);
+
+  const handleCategoryChange = (e) => {
+    e.stopPropagation(); 
+    const category = e.target.value;
+    onCategoryChange(category);
   };
 
   return (
-    <div>
-      <div className="flex flex-row-reverse items-center gap-3  ">
-        <div className="flex items-center gap-2">
-          <label htmlFor="catagories" className=" font-medium text-white ">
-            Catagories:
-          </label>
+    <div className="flex flex-row-reverse ">
+      
+      <details className="relative group w-full ">
+        <summary className="cursor-pointer p-3  px-5 font-medium text-white rounded-lg shadow-md bg-[#302e2e] max-[580px]:p-2 max-[580px]:text-sm transition duration-300">
+        Filters
+        </summary>
+        <div className="absolute right-0 mt-2 w-48 bg-[#302e2e] text-white rounded-lg shadow-md p-3 flex flex-col gap-2">
+         
+          <label className="block text-sm font-medium">Category</label>
           <select
-            className="p-3 font-medium  text-white rounded-lg shadow-md bg-[#302e2e] cursor-pointer transition duration-300"
-            onChange={handleCatagoryChange}
+            className="w-full p-2 rounded-md bg-gray-700 text-white cursor-pointer"
+            onChange={handleCategoryChange}
           >
-            <option value=""> All</option>
-            <option value="cultural"> Cultural</option>
+            <option value="">All</option>
+            <option value="cultural">Cultural</option>
             <option value="lecture">Lecture</option>
             <option value="workshop">Workshop</option>
-            <option value="selection"> Selection</option>
-            <option value="competition"> Competition</option>
-            <option value="hall"> Hall</option>
-            <option value="tech"> Tech</option>
+            <option value="selection">Selection</option>
+            <option value="competition">Competition</option>
+            <option value="hall">Hall</option>
+            <option value="tech">Tech</option>
           </select>
-        </div>
 
-        <div className="flex items-center gap-2">
-          <label htmlFor="sortBy" className="font-medium text-white">
-            {" "}
-            Sort by
-          </label>
+          <label className="block text-sm font-medium mt-2">Sort By</label>
           <select
             id="sortBy"
-            className="text-white p-3 mr-5 font-medium  rounded-md  bg-[#302e2e]  transition duration-300 cursor-pointer"
+            className="w-full p-2 rounded-md bg-gray-700 text-white cursor-pointer"
             onChange={handleSortChange}
           >
             <option value="">None</option>
-
-            <option value="time">Time </option>
+            <option value="time">Time</option>
           </select>
         </div>
-      </div>
+      </details>
     </div>
   );
 }

@@ -25,7 +25,7 @@ return dateObj.toLocaleDateString("en-GB")
   return (
     <div>
       <div className=" ">
-        <div className="flex-col p-2 m-4 h-90 w-60 bg-[#212020]  rounded-lg hover:cursor-pointer " onClick={handleClick}>
+        <div className="flex-col p-2 m-4 h-90 w-[90%] bg-[#212020]  rounded-lg hover:cursor-pointer   " onClick={handleClick}>
           <div className="h-60">
             <img
               className="w-full h-full object-cover"

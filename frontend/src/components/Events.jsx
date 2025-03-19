@@ -44,7 +44,7 @@ export default function Events() {
     );
   }, [searchQuery, currentEvents]);
 
-  const handleCatagoryChange = (type) => {
+  const handleCategoryChange = (type) => {
     if (type === "") {
       setFilteredEvents(currentEvents);
     } else {
@@ -90,7 +90,7 @@ export default function Events() {
  
         <Link
   to="/archive"
-  className="p-3 px-4 font-medium rounded-lg bg-[#302e2e] text-white shadow-md hover:bg-white hover:text-black transition duration-300"
+  className="p-3 px-4 font-medium rounded-lg bg-[#302e2e] text-white shadow-md hover:bg-white max-[580px]:text-sm max-[580px]:p-2 hover:text-black transition duration-300"
   state={{ events: events }}
 >
   Archive
@@ -99,7 +99,7 @@ export default function Events() {
 
   <Catagories
     onSortChange={handleSortChange}
-    onCatagoryChange={handleCatagoryChange}
+    onCategoryChange={handleCategoryChange}
   />
 </div>
         <div className="grid grid-cols-5 max-lg:grid-cols-4 max-md:grid-cols-3 bg-[#0b0b0b] min-h-screen max-sm:grid-cols-2 max-[380px]:grid-cols-1 max">

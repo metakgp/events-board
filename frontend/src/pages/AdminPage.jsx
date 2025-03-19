@@ -52,7 +52,7 @@ console.log(err);
       Pending societies
         </h1>
       </div>
-      <div>
+      <div className="flex-col flex">
 
         
         { (pendingSocieties.length===0)?(

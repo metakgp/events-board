@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {jwtDecode} from "jwt-decode";
-
+import { Menu, X } from "lucide-react"; 
 import { useNavigate } from "react-router-dom";
 export default function Navbar() {
  
   const navigate=useNavigate()
   const [user, setUser] = useState(null);
+  const [isOpen,setIsOpen]=useState(null);
   const handleLogout=()=>{
     setUser(null);
     localStorage.removeItem("userData")
     navigate("/")
+    window.location.reload()
   }
   useEffect(() => {
     
@@ -38,10 +40,16 @@ export default function Navbar() {
       <div className="flex items-center space-x-2 p-2">
         <span className="font-bold text-white text-lg">metaKGP</span>
       </div>
-      <div className="flex space-x-8">
+
+      <button className="min-[430px]:hidden" onClick={
+        ()=>{setIsOpen(!isOpen)}
+      }>
+        {isOpen? <X size={28} />:<Menu size={28}/> }
+      </button>
+      <div className={`flex min-[430px]:space-x-8 transition-all duration-500 max-[430px]:space-y-2  max-[430px]:absolute bg-black max-[430px]:w-full max-[430px]:bg-opacity-100 max-[430px]:top-14 max-[430px]:right-0 max-[430px]:${isOpen?"flex-col":"hidden"}`}>
        { !user && (<Link
           to="/register"
-          className="hover:text-black hover:bg-[#f5f3f3]  rounded-md cursor-pointer p-2 transition duration-400"
+          className="hover:text-black hover:bg-[#f5f3f3]  rounded-md cursor-pointer p-2  transition duration-400"
         >
           Register
         </Link>)}
@@ -53,14 +61,7 @@ export default function Navbar() {
             Signin
           </Link>
         )}
-        {user?.role === "admin" && (
-          <Link
-            to="/adminpage"
-            className="hover:text-black hover:bg-[#f5f3f3] rounded-md cursor-pointer p-2 transition duration-400"
-          >
-            AdminPage
-          </Link>
-        )}
+     
         {(user?.role === "society" || user?.role==="admin" ) && (
           <Link
             to="/add"
@@ -69,14 +70,7 @@ export default function Navbar() {
             Add Event
           </Link>
         )}
-        {(user?.role === "society" || user?.role==="admin" ) && (
-          <Link
-            to="/dashboard"
-            className="hover:text-black hover:bg-[#f5f3f3] rounded-md cursor-pointer p-2 transition duration-400"
-          >
-            Dashboard
-          </Link>
-        )}
+       
 
         <Link
           to="/"

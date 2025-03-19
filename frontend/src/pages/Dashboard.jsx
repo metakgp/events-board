@@ -50,7 +50,7 @@ export default function Dashboard() {
           Total Events: {userEvents.length}
         </div>
       )}
-      <div>
+      <div className="min-h-screen">
         {userEvents.length === 0 ? (
           <p className="p-2 mx-4 text-xl">No events</p>
         ) : (

@@ -23,7 +23,7 @@ export default function ArchivedEvents() {
         {pastEvents.length === 0 ? (
           <p className='text-white my-4'>No past events to show.</p>
         ) : (
-          <div className="grid grid-cols-5 gap-4 ">
+          <div className="grid grid-cols-5  max-lg:grid-cols-4 max-md:grid-cols-3  max-sm:grid-cols-2 max-[380px]:grid-cols-1">
             {pastEvents.map((event, index) => (
                <Eventcard
                               id={event._id}

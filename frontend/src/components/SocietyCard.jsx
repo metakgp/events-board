@@ -20,18 +20,20 @@ const handleDecline=async ()=>{
   }
   return (
     <div>
-      <div className="bg-[#212020] text-white rounded-lg m-4 p-4">
-        <div className="font-semibold text-2xl mb-2">Society: {name}</div>
+      <div className="bg-[#212020] text-white rounded-lg m-4 p-4  ">
+
+
+        <div className="font-semibold text-2xl mb-2   ">Society: {name}</div>
         
         
-        <div className="flex items-center justify-between">
-          <div>
+        <div className="flex   max-[500px]:flex-col justify-between min-[500px]:items-end">
+          <div className="my-2">
             <div className="font-poppins font-md">Mail: {mail}</div>
             <div className="font-poppins font-md">Phone: {phone}</div>
             <div className="font-poppins font-md">Note: {description}</div>
           </div>
-          <div className="flex ">
-          <div className=" text-white font-md bg-black px-4 py-2 mr-5 rounded-lg cursor-pointer hover:bg-white hover:text-black transition duration-300" onClick={handleDecline}>
+          <div className="flex  h-1/5 max-[500px]:w-full  max-[500px]:justify-between ">
+          <div className=" text-white font-md bg-black px-4 py-2 min-[500px]:mr-5  rounded-lg cursor-pointer hover:bg-white hover:text-black transition duration-300" onClick={handleDecline}>
             Decline
           </div>
           <div className=" hover:text-white font-md hover:bg-black px-4 py-2 rounded-lg cursor-pointer bg-white text-black transition duration-300" onClick={handleApprove}>
