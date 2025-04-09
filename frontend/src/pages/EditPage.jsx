@@ -5,7 +5,7 @@ import axios from "axios";
 import Error from "../components/Error";
 import crossMark from "/assets/cross.png";
 import { jwtDecode } from "jwt-decode";
-
+import api from "../utils/api";
 export default function EditPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ export default function EditPage() {
   const [society, setSociety] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-
+const [user,setUser]=useState([])
   const availableTags = [
     "Cultural",
     "Lecture",
@@ -30,12 +30,28 @@ export default function EditPage() {
     "Competition",
     "Club",
   ];
+  useEffect(()=>{
+ 
+    const fetchUser=async()=>{
+      try{
+        const response=await api.get("/user/me")
+        setUser(response.data)
+        
+      }
+    catch(err){
+      console.log(err);
+    } 
 
+  }
+
+  fetchUser();
+
+},[])
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8000/event/page/${id}`
+        const response = await api.get(
+          `/event/page/${id}`
         );
         const event = response.data;
 
@@ -68,12 +84,7 @@ export default function EditPage() {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("userData");
-    if (!token) return setErrorMessage("Unauthorized");
 
-    const user = jwtDecode(token);
-    const createdBy = user.mail;
-    const authHeader = { Authorization: `Bearer ${token}` };
 
     let posterPath = posterurl;
     if (posterOption === "file" && posterFile) {
@@ -81,10 +92,9 @@ export default function EditPage() {
       formData.append("poster", posterFile);
 
       try {
-        const uploadRes = await axios.post(
-          "http://localhost:8000/event/upload",
+        const uploadRes = await api.post(
+          "/event/upload",
           formData,
-          { headers: { "Content-Type": "multipart/form-data", ...authHeader } }
         );
         posterPath = uploadRes.data.imageUrl;
       } catch (error) {
@@ -100,15 +110,15 @@ export default function EditPage() {
       date,
       time,
       society,
-      createdBy,
+      createdBy:user.mail,
       selectedTags,
     };
 
     try {
-      const result = await axios.patch(
-        `http://localhost:8000/event/update/${id}`,
+      const result = await api.patch(
+        `/event/update/${id}`,
         updatedEventData,
-        { headers: authHeader }
+        
       );
 
       if (result.data.message === "ok") {

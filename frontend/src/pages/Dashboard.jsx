@@ -5,35 +5,35 @@ import axios from "axios";
 import UserSocCard from "../components/UserSocCard";
 import { Navigate } from "react-router-dom";
 import Error from "../components/Error";
+import api from "../utils/api";
 export default function Dashboard() {
   const [ErrorMessage, setErrorMessage] = useState("");
   const [userEvents, setuserEvents] = useState([]);
+const [user,setUser]=useState([])
 
-  const token = localStorage.getItem("userData");
-  const user = jwtDecode(token);
-  const userMail = user.mail;
-  const role = user.role;
-  const authHeader = token ? `Bearer ${token}` : "";
 
   useEffect(() => {
     const fetchuserEvents = async () => {
-      const response = await axios.post(
-        "http://localhost:8000/event/user",
-        { userMail },
-        {
-          headers: { Authorization: authHeader },
+      try {
+         const userData = await api.get("/user/me");
+        setUser(userData.data)
+     const userMail=userData.data.mail
+        const response = await api.post("/event/user", {
+          userMail,
+        });
+
+        if (response.data.message === "ok") {
+          setuserEvents(response.data.userEvents || []);
+        } else {
+          navigate("/"); // redirect if failed
         }
-      );
-      if (response.data.message === "ok") {
-        setuserEvents(response.data.userEvents || []);
-      } else {
-        Navigate("/"); //need to imrove later
+      } catch (err) {
+        console.error(err);
       }
     };
-
+  
     fetchuserEvents();
   }, []);
-
   return (
     <div className="bg-[#0b0b0b] min-h-screen text-white">
       <div>
@@ -41,7 +41,7 @@ export default function Dashboard() {
         <div>{ErrorMessage && <Error ErrorMessage={ErrorMessage} />}</div>
       </div>
       <div className="flex space-x-2">
-        {role === "admin" && (
+        {user.role === "admin" && (
           <div className="font-bold text-4xl p-2 m-4 ">Welcome Admin !</div>
         )}
       </div>
@@ -54,8 +54,9 @@ export default function Dashboard() {
         {userEvents.length === 0 ? (
           <p className="p-2 mx-4 text-xl">No events</p>
         ) : (
-          userEvents.map((event) => (
+          userEvents.map((event,index) => (
             <UserSocCard
+            key={index}
               id={event._id}
               title={event.title}
               description={event.description}

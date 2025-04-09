@@ -3,36 +3,43 @@ import { Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { Menu, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import api from "../utils/api";
 export default function Navbar() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem("userData");
-    navigate("/");
-    window.location.reload();
+  const handleLogout = async () => {
+    try {
+      await api.post("/user/logout");
+      setUser(null);
+      navigate("/");
+      window.location.reload();
+    } catch (err) {
+      console.error("Logout failed", err);
+    }
   };
-  useEffect(() => {
-    const token = localStorage.getItem("userData");
 
-    if (token) {
+  
+  useEffect(() => { 
+    const fetchUser = async () => {
       try {
-        const userData = jwtDecode(token);
-        console.log(userData);
-        setUser(userData);
+        const res = await api.get("/user/me");
+        setUser(res.data);
+       
       } catch (err) {
-        console.error("invalid token");
-        localStorage.removeItem("userData");
+        console.log("Not authenticated");
         setUser(null);
       }
-    }
+    };
+
+    fetchUser();
   }, []);
 
   return (
     <nav className="bg-black text-gray-300 p-2 flex justify-between items-center">
       <div className="flex items-center space-x-2 p-2">
         <span className="font-bold text-white text-lg">metaKGP</span>
+        
       </div>
 
       <button

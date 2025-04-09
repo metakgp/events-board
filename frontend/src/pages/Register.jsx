@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios"
 import Error from "../components/Error";
 import Navbar from "../components/Navbar";
+import api from "../utils/api";
 export default function Register() {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
@@ -42,7 +43,7 @@ const phoneRegx=/^\+?[1-9]\d{1,14}$/;
       return;
     }
     try{
-      const response=await axios.post("http://localhost:8000/society/create",SocietyData);
+      const response=await api.post("/society/create",SocietyData);
       if(response.data.message==="ok"){
         navigate("/")
       }

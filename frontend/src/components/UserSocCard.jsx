@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../utils/api";
 export default function UserSocCard({
   id,
   title,
@@ -12,8 +13,8 @@ export default function UserSocCard({
   const navigate = useNavigate();
   const handleDelete = async () => {
     try {
-      const response = await axios.delete(
-        `http://localhost:8000/event/delete/${id}`
+      const response = await api.delete(
+        `/event/delete/${id}`
       );
       if (response.data.message === "ok") {
         setuserEvents((prevEvents) =>

@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import Error from "../components/Error";
 import { useNavigate } from "react-router-dom";
+import api from "../utils/api";
 export default function Signin() {
   const navigate = useNavigate();
   const [mail, setMail] = useState("");
@@ -18,17 +19,18 @@ export default function Signin() {
       password,
     };
     try{
-      const response = await axios.post(
-        "http://localhost:8000/user/signin",
+      const response = await api.post(
+        "/user/signin",
         userData
       );
+      console.log(response)
       if (response.data.message==="ok") {
        
-        localStorage.setItem("userData",response.data.token);
+   
 
         navigate("/");
       } else {
-        console.log("hi this is the message",response.data.message)
+       
         // alert(JSON.stringify(response.data.message));
       setErrorMessage(response.data.message);    
         window.scrollTo(0,0);

@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Society = require("../models/Society");
 const verifyToken=require("../utils/auth");
-const { verify } = require("jsonwebtoken");
 router.post("/create", async (req, res) => {
   try {
     const { name, mail, phone, description, status, password } = req.body;

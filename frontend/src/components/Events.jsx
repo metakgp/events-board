@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Eventcard from "./Eventcard";
 import Catagories from "./Catagories";
-
+import api from "../utils/api";
 export default function Events() {
   const [events, setEvents] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,10 +19,10 @@ export default function Events() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const result = await fetch("http://localhost:8000/event/");
-        const data = await result.json();
-        setEvents(data);
-        const upcomingEvents = data.filter(getCurrentEvents);
+        const result = await api.get("/event/");
+       
+        setEvents(result.data);
+        const upcomingEvents = result.data.filter(getCurrentEvents);
         setCurrentEvents(upcomingEvents);
         setFilteredEvents(upcomingEvents);
       } catch (err) {

@@ -1,18 +1,36 @@
 import { Navigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
+import { useEffect, useState } from "react";
+import api from "../utils/api";
+
 const PrivateRoute = ({ children, allowedRoles }) => {
-  const token = localStorage.getItem("userData");
-  if(!token){
-    return <Navigate to="/signin" />;
-  }
-  const user=jwtDecode(token);
+  const [authorized, setAuthorized] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  
-  if (!user || !allowedRoles.includes(user.role)) {
-    return <Navigate to="/signin" />;
-  }
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await api.get("/user/me");
+        const user = res.data;
+ 
+        if (allowedRoles.includes(user.role)) {
+          setAuthorized(true);
+        } else {
+          setAuthorized(false);
+        }
+      } catch (err) {
+        setAuthorized(false);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  return children;
+    fetchUser();
+  }, [allowedRoles]);
+
+  if (loading)
+    return <div className="text-white text-center mt-10">Loading...</div>;
+
+  return authorized ? children : <Navigate to="/signin" />;
 };
 
 export default PrivateRoute;

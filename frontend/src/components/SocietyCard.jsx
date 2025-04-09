@@ -1,18 +1,19 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../utils/api";
 export default function SocietyCard({ id, name, mail, phone, description ,onApprove,onDecline}) {
   const navigate=useNavigate();
 
   const handleApprove=async ()=>{
-const response=await axios.post("http://localhost:8000/society/approve",{id}); 
+const response=await api.post("/society/approve",{id}); 
     if(response.data.message==="ok"){
       onApprove();
     }
 
 }
 const handleDecline=async ()=>{
-  const response=await axios.post("http://localhost:8000/society/decline",{id}); 
+  const response=await api.post("/society/decline",{id}); 
       if(response.data.message==="ok"){
         onDecline();
       }

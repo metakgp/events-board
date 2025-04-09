@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Error from "../components/Error";
 import crossMark from "/assets/cross.png"
-import { jwtDecode } from "jwt-decode";
+import api from "../utils/api";
 export default function AddEvent() {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
@@ -17,7 +17,7 @@ export default function AddEvent() {
   const [society, setSociety] = useState("");
   const [selectedTags,setSelectedTags]=useState([]);
   const [errorMessage,setErrorMessage]=useState("");
-
+  const [user,setUser]=useState([]);
   //predefined tags
   const availableTags=[
     "Cultural",
@@ -30,6 +30,26 @@ export default function AddEvent() {
 
 
   ];
+
+useEffect(()=>{
+ 
+    const fetchUser=async()=>{
+      try{
+        const response=await api.get("/user/me")
+        setUser(response.data)
+        
+      }
+    catch(err){
+      console.log(err);
+    } 
+
+  }
+
+  fetchUser();
+
+},[])
+
+
 const handleTagSelect=(tag)=>{
   if(!selectedTags.includes(tag)){
     setSelectedTags([...selectedTags,tag]);
@@ -46,10 +66,7 @@ const handleRemoveTag=(tag)=>{
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-      const token = localStorage.getItem("userData");
-      const user=jwtDecode(token);
-      const createdBy=user.mail;
-      const authHeader = token ? `Bearer ${token}` : "";
+     
     let posterPath = posterurl;
 
     if (posterOption === "file" && posterFile) {
@@ -57,12 +74,9 @@ const handleRemoveTag=(tag)=>{
       formData.append("poster", posterFile);
 
       try {
-        const uploadRes = await axios.post(
-          "http://localhost:8000/event/upload",
-          formData,
-          {
-            headers: { "Content-Type": "multipart/form-data",Authorization:authHeader ,},
-          }
+        const uploadRes = await api.post(
+          "/event/upload",
+          formData
         );
         posterPath = uploadRes.data.imageUrl;
       } catch (error) {
@@ -78,15 +92,13 @@ const handleRemoveTag=(tag)=>{
       posterurl: posterPath,
       time,
       society,
-      createdBy,
+      createdBy:user.mail,
       selectedTags,
     };
 
-  const result = await axios.post(
-      "http://localhost:8000/event/add",
-      eventData,{
-        headers:{Authorization:authHeader}
-      }
+  const result = await api.post(
+      "/event/add",
+      eventData,
     );
     if (result.data.message === "ok") {
       navigate("/");
@@ -251,7 +263,7 @@ const handleRemoveTag=(tag)=>{
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
-              <div className="flex space-x-4">
+              <div className="flex space-x-4 max-[360px]:flex-col max-[360px]:space-x-0">
                 <div>
                   <label className="block text-sm font-medium text-white mb-2">
                     Date
@@ -263,8 +275,8 @@ const handleRemoveTag=(tag)=>{
                     onChange={(e) => setDate(e.target.value)}
                   />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-white mb-2">
+                <div className="">
+                  <label className="block text-sm font-medium text-white mb-2  ">
                     Time
                   </label>
                   <input

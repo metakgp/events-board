@@ -26,7 +26,7 @@ router.post("/upload", upload.single("poster"), (req, res) => {
 
 router.post("/add",verifyToken, async (req, res) => {
   
-  console.log("i am in creating")
+
   const { title, description, date, posterurl, time, society,createdBy, selectedTags } = req.body;
 
   try {
@@ -62,6 +62,7 @@ router.post("/add",verifyToken, async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
+   
     const events = await Event.find();
     res.status(200).json(events);
   } catch (err) {
@@ -89,7 +90,7 @@ router.post("/user",async (req,res)=>{
   try{
    
     const {userMail}=req.body;
-    // console.log(userMail)
+    
     const userEvents=await Event.find({createdBy:userMail});
     // console.log(userEvents)
     res.status(200).json({message:"ok",userEvents});

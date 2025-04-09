@@ -12,6 +12,7 @@ import AdminPage from "./pages/AdminPage.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import EditPage from "./pages/EditPage.jsx";
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>

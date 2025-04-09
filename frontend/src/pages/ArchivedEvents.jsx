@@ -2,9 +2,24 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import { useLocation } from 'react-router-dom';
 import Eventcard from '../components/Eventcard';
+import api from '../utils/api';
+import { useState,useEffect } from 'react';
 export default function ArchivedEvents() {
-  const location = useLocation();
-  const {events} = location.state || [];
+ 
+  const [events,setEvents]=useState([])
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const result = await api.get("/event/");
+        setEvents(result.data);
+      } catch (err) {
+        console.log("hi bro");
+        console.error(err);
+      }
+    };
+    fetchEvents();
+  }, []);
+  
 
   const CurrentDate = new Date();
 

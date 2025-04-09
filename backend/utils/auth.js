@@ -1,17 +1,18 @@
 const jwt=require("jsonwebtoken")
 require('dotenv').config({path:'.././.env'});
 
-const secretKey=process.env.JWT_SECRET||"secret";
+const SECRET=process.env.JWT_SECRET||"secret";
+
+
 const verifyToken=(req,res,next)=>{
-const token=req.header("Authorization");
+const token=req.cookies.token;
 if(!token){
 return res.json({message:"Access denied"})
 
 }    
 try{
-    const decoded=jwt.verify(token.split(" ")[1],secretKey);
+    const decoded=jwt.verify(token,SECRET);
     req.user=decoded;
-   
   
     next();
 }
