@@ -215,7 +215,7 @@ const handleRemoveTag=(tag)=>{
                       
                       className={`px-3 py-1 rounded-full text-sm ${
                         selectedTags.includes(tag)
-                          ? "bg-blue-500 text-white"
+                          ? "bg-orange-500/60 text-white"
                           : "bg-gray-600 text-white hover:bg-gray-400"
                       }`}
                     >

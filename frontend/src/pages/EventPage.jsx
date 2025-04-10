@@ -43,11 +43,11 @@ export default function EventPage() {
       <Navbar />
       <div className="flex  bg-gradient-to-bl bg-neutral-900 min-h-screen max-[500px]:flex-col">
       <div className="p-5 w-3/5  max-[500px]:w-full  ">
-        <h1 className="text-5xl py-3 font-semibold text-white  max-[300px]:text-4xl">{eventDetails.title.charAt(0).toUpperCase()+eventDetails.title.slice(1)}</h1>
+        <h1 className="text-5xl py-3 font-semibold text-white  max-[400px]:text-4xl">{eventDetails.title.charAt(0).toUpperCase()+eventDetails.title.slice(1)}</h1>
         <div className=" my-3 pt-1 w-2/5  max-[500px]:w-[93%] max-[500px]:block hidden ">
         <img className="w-full rounded-[10px]" src={eventDetails.posterurl} alt="Event Poster" />
       </div>  
-      
+
         <p
           className="text-xl py-2  px-2 font-poppins  text-white  animate-fadeIn max-[300px]:text-sm"
           dangerouslySetInnerHTML={{

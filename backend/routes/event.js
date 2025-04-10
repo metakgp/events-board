@@ -112,10 +112,14 @@ router.patch("/update/:id", upload.single("poster"),verifyToken, async (req, res
     }
 
     let newPosterPath = oldEvent.posterurl; 
+
+    const isNewPosterUploaded = eventDetails.posterurl && 
+    eventDetails.posterurl !== oldEvent.posterurl && 
+    !eventDetails.posterurl.includes("http://localhost:8000/");
   
     // If a new file is uploaded, delete the old image and update path
    
-    if (newPosterPath.includes("uploads/")) {
+    if (isNewPosterUploaded) {
       console.log("hi iam deleting");
       const oldPosterPath = oldEvent.posterurl.replace("http://localhost:8000/", ""); 
       const absoluteOldPath = path.join(__dirname, "..", oldPosterPath);
