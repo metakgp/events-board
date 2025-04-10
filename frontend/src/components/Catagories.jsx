@@ -17,14 +17,14 @@ export default function Categories({ onSortChange, onCategoryChange }) {
     <div className="flex flex-row-reverse ">
       
       <details className="relative group w-full ">
-        <summary className="cursor-pointer p-3  px-5 font-medium text-white rounded-lg shadow-md bg-[#302e2e] max-[580px]:p-2 max-[580px]:text-sm transition duration-300">
+        <summary className="cursor-pointer p-3  px-5 font-medium text-white rounded-lg shadow-md bg-neutral-800 max-[580px]:p-2 max-[580px]:text-sm transition duration-300">
         Filters
         </summary>
-        <div className="absolute right-0 mt-2 w-48 bg-[#302e2e] text-white rounded-lg shadow-md p-3 flex flex-col gap-2">
+        <div className="absolute right-0 mt-2 w-48 bg-neutral-800 text-white rounded-lg shadow-md p-3 flex flex-col gap-2">
          
           <label className="block text-sm font-medium">Category</label>
           <select
-            className="w-full p-2 rounded-md bg-gray-700 text-white cursor-pointer"
+            className="w-full p-2 rounded-md bg-neutral-900 text-white cursor-pointer"
             onChange={handleCategoryChange}
           >
             <option value="">All</option>
@@ -40,7 +40,7 @@ export default function Categories({ onSortChange, onCategoryChange }) {
           <label className="block text-sm font-medium mt-2">Sort By</label>
           <select
             id="sortBy"
-            className="w-full p-2 rounded-md bg-gray-700 text-white cursor-pointer"
+            className="w-full p-2 rounded-md bg-neutral-900 text-white cursor-pointer"
             onChange={handleSortChange}
           >
             <option value="">None</option>

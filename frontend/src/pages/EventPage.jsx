@@ -41,7 +41,7 @@ export default function EventPage() {
   return (
     <div>
       <Navbar />
-      <div className="flex  bg-gradient-to-bl bg-[#212020] min-h-screen max-[500px]:flex-col">
+      <div className="flex  bg-gradient-to-bl bg-neutral-900 min-h-screen max-[500px]:flex-col">
       <div className="p-5 w-3/5  max-[500px]:w-full  ">
         <h1 className="text-5xl py-3 font-semibold text-white  max-[300px]:text-4xl">{eventDetails.title.charAt(0).toUpperCase()+eventDetails.title.slice(1)}</h1>
         <div className=" my-3 pt-1 w-2/5  max-[500px]:w-[93%] max-[500px]:block hidden ">

@@ -12,7 +12,7 @@ import AdminPage from "./pages/AdminPage.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import EditPage from "./pages/EditPage.jsx";
-
+import Footer from "./components/Footer.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
@@ -49,6 +49,7 @@ createRoot(document.getElementById("root")).render(
           }
         />
       </Routes>
+       <Footer/>
     </BrowserRouter>
   </StrictMode>
 );

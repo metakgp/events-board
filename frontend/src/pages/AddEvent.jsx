@@ -116,8 +116,8 @@ const handleRemoveTag=(tag)=>{
       <div>
         <Navbar />
         {errorMessage && <Error ErrorMessage={errorMessage}/>}
-        <div className="flex justify-center  items-center min-h-screen bg-[#0b0b0b]">
-          <form className="w-full max-w-md bg-[#212020] shadow-md rounded-lg p-6  m-3">
+        <div className="flex justify-center  items-center min-h-screen bg-neutral-900">
+          <form className="w-full max-w-md bg-neutral-800 shadow-md rounded-lg p-6  m-3">
             <h2 className="text-2xl font-bold mb-6  text-white text-center">
               Add Event
             </h2>

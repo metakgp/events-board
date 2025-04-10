@@ -21,7 +21,7 @@ const handleDecline=async ()=>{
   }
   return (
     <div>
-      <div className="bg-[#212020] text-white rounded-lg m-4 p-4  ">
+      <div className="bg-neutral-800 text-white rounded-lg m-4 p-4  ">
 
 
         <div className="font-semibold text-2xl mb-2   ">Society: {name}</div>

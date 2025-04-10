@@ -35,7 +35,7 @@ const [user,setUser]=useState([])
     fetchuserEvents();
   }, []);
   return (
-    <div className="bg-[#0b0b0b] min-h-screen text-white">
+    <div className="bg-neutral-900 min-h-screen text-white">
       <div>
         <Navbar />
         <div>{ErrorMessage && <Error ErrorMessage={ErrorMessage} />}</div>

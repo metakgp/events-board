@@ -37,7 +37,7 @@ console.log(err);
 
   
   return (
-    <div className="bg-[#0b0b0b] min-h-screen">
+    <div className="bg-neutral-900 min-h-screen">
       <div>
         <Navbar /> 
       </div>

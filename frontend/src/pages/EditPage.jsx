@@ -137,8 +137,8 @@ const [user,setUser]=useState([])
     <>
       <Navbar />
       {errorMessage && <Error ErrorMessage={errorMessage} />}
-      <div className="flex justify-center items-center min-h-screen bg-[#0b0b0b]">
-        <form className="w-full max-w-md bg-[#212020] shadow-md rounded-lg p-6 m-3">
+      <div className="flex justify-center items-center min-h-screen bg-neutral-900">
+        <form className="w-full max-w-md bg-neutral-800 shadow-md rounded-lg p-6 m-3">
           <h2 className="text-2xl font-bold mb-6 text-white text-center">
             Edit Event
           </h2>
@@ -227,7 +227,7 @@ const [user,setUser]=useState([])
                     onClick={() => handleTagSelect(tag)}
                     className={`px-3 py-1 rounded-full text-sm ${
                       selectedTags.includes(tag)
-                        ? "bg-blue-500 text-white"
+                        ? "bg-orange-500/60 text-white"
                         : "bg-gray-600 text-white hover:bg-gray-400"
                     }`}
                   >
