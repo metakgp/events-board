@@ -3,6 +3,7 @@ import Tag from "./Tag";
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 export default function Eventcard({ id, title, posterurl, date, time,society, tags }) {
   const formatDate=(dateString)=>{
 const dateObj=new Date(dateString)
@@ -23,18 +24,19 @@ return dateObj.toLocaleDateString("en-GB")
   };
 
   return (
-    <div>
-      <div className=" ">
-        <div className="flex-col p-2 m-4 h-90 w-[90%] bg-neutral-800  rounded-lg hover:cursor-pointer   " onClick={handleClick}>
+    <motion.div animate={{ opacity: 1 }} initial={{ opacity: 0 }} transition={{ duration: .5 }}>
+
+      <div className="" >
+        <div className="flex-col p-2 m-4 h-90 w-[90%] bg-neutral-800  rounded-lg hover:cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105   " onClick={handleClick}>
           <div className="h-60">
             <img
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded-md"
               src={posterurl}
               alt=""
             />
           </div>
-          <div className="p-2 text-2xl font-bold font-roboto  text-gray-200 truncate overflow-hidden whitespace-nowrap">{title.charAt(0).toUpperCase()+title.slice(1)}</div>
-          <div className="p-2  text-md font-sans font-semibold text-gray-200">Society: {society}</div>
+          <div className="p-2 text-2xl    text-gray-200 truncate overflow-hidden whitespace-nowrap">{title.charAt(0).toUpperCase()+title.slice(1)}</div>
+          <div className="p-2  text-md    text-gray-200">Society: {society}</div>
           <div className="flex-col flex-justify-around ">
             <div className="px-2 py-1 text-gray-200 ">  📅Date: {formatDate(date)}</div>
             <div className="px-2 py-1 text-gray-200"> 🕒Time: {formatTime(time)}</div>
@@ -51,6 +53,6 @@ return dateObj.toLocaleDateString("en-GB")
           
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

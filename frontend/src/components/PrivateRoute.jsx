@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../utils/api";
+import Loader from "./Loader";
 
 const PrivateRoute = ({ children, allowedRoles }) => {
   const [authorized, setAuthorized] = useState(null);
@@ -28,7 +29,7 @@ const PrivateRoute = ({ children, allowedRoles }) => {
   }, [allowedRoles]);
 
   if (loading)
-    return <div className="text-white text-center mt-10">Loading...</div>;
+    return <Loader/>;
 
   return authorized ? children : <Navigate to="/signin" />;
 };

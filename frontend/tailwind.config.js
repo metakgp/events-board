@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       animation: {
-        fadeIn: "fadeIn 1s ease-in forwards",
+        fadeIn: "fadeIn .5s ease-in forwards",
       },
       keyframes: {
         fadeIn: {
@@ -21,7 +21,9 @@ export default {
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],
         poppins: ['Poppins', 'sans-serif'],
-      },
+     
+        sans: ['"Titillium Web"', 'sans-serif'],
+      },  
     },
   },
   plugins: [],

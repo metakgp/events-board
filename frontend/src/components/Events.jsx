@@ -3,14 +3,17 @@ import { Link } from "react-router-dom";
 import Eventcard from "./Eventcard";
 import Catagories from "./Catagories";
 import api from "../utils/api";
+import Loader from "./Loader";
+
 export default function Events() {
   const [events, setEvents] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [currentEvents, setCurrentEvents] = useState([]);
-
+  const [isLoading,setIsLoading]=useState(true);
   const CurrentDate = new Date();
-
+  const [visibleCount, setVisibleCount] = useState(15);
+  const eventsPerPage = 15;
   const getCurrentEvents = (event) => {
     const eventDate = new Date(`${event.date}T${event.time}`);
     return eventDate > CurrentDate;
@@ -25,8 +28,11 @@ export default function Events() {
         const upcomingEvents = result.data.filter(getCurrentEvents);
         setCurrentEvents(upcomingEvents);
         setFilteredEvents(upcomingEvents);
+      
       } catch (err) {
         console.error(err);
+      }finally {
+        setIsLoading(false); 
       }
 
     };
@@ -42,6 +48,7 @@ export default function Events() {
         );
       })
     );
+    setVisibleCount(eventsPerPage);
   }, [searchQuery, currentEvents]);
 
   const handleCategoryChange = (type) => {
@@ -56,6 +63,7 @@ export default function Events() {
         )
       );
     }
+    setVisibleCount(eventsPerPage); 
   };
 
   const handleSortChange = (sortOption) => {
@@ -70,12 +78,26 @@ export default function Events() {
     }
 
     setFilteredEvents(sortedEvents);
+    setVisibleCount(eventsPerPage);
   };
+
+  
+  const loadMoreEvents = () => {
+    setVisibleCount((prev) => prev + eventsPerPage);
+  };
+  const visibleEvents = filteredEvents.slice(0, visibleCount);
+
 
   return (
     <div>
+     { isLoading?
+     (
+      <Loader/>
+     ):(
+
+     
       <div>
-      <h1 className="text-3xl font-bold p-4 text-white bg-neutral-900">Latest Events</h1>
+      <h1 className="text-3xl  font-normal p-4    text-white bg-neutral-900">Latest Events</h1>
         <div className="bg-neutral-900 p-2 ">
           <input
             type="text"
@@ -90,7 +112,7 @@ export default function Events() {
  
         <Link
   to="/archive"
-  className="p-3 px-4 font-medium rounded-lg bg-neutral-800 text-white shadow-md hover:bg-white max-[580px]:text-sm max-[580px]:p-2 hover:text-black transition duration-300"
+  className="p-3 px-4 font-medium rounded-lg bg-neutral-800  text-white shadow-md hover:bg-white max-[580px]:text-sm max-[580px]:p-2 hover:text-black transition duration-300"
   state={{ events: events }}
 >
   Archive
@@ -104,10 +126,10 @@ export default function Events() {
 </div>
         <div className="grid grid-cols-5 max-lg:grid-cols-4 max-md:grid-cols-3 bg-neutral-900 min-h-screen max-sm:grid-cols-2 max-[380px]:grid-cols-1 max">
         
-          {filteredEvents.length === 0 ? (
+          {visibleEvents.length === 0 ? (
             <p className="p-4 text-white">Hi no events yet</p>
           ) : (
-            filteredEvents.map((event, index) => (
+            visibleEvents.map((event, index) => (
               <Eventcard
                 id={event._id}
                 key={event._id || index}
@@ -121,7 +143,18 @@ export default function Events() {
             ))
           )}
         </div>
+        {visibleCount < filteredEvents.length && (
+            <div className="flex justify-center pb-3  bg-neutral-900">
+              <button
+                className="px-5 py-2  bg-white  rounded-md  text-black transition"
+                onClick={loadMoreEvents}
+              >
+                Load More
+              </button>
+            </div>
+          )}
       </div>
+        )}
     </div>
   );
 }

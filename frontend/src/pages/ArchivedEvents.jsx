@@ -1,25 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
-import { useLocation } from 'react-router-dom';
 import Eventcard from '../components/Eventcard';
 import api from '../utils/api';
-import { useState,useEffect } from 'react';
+import Loader from '../components/Loader';
+
 export default function ArchivedEvents() {
- 
-  const [events,setEvents]=useState([])
+  const [events, setEvents] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(15);
+  const [isLoading, setIsLoading] = useState(true);
+  const eventsPerPage = 15;
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const result = await api.get("/event/");
         setEvents(result.data);
       } catch (err) {
-        console.log("hi bro");
         console.error(err);
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchEvents();
   }, []);
-  
 
   const CurrentDate = new Date();
 
@@ -29,31 +32,52 @@ export default function ArchivedEvents() {
   };
 
   const pastEvents = events.filter(CheckExpiry);
+  const visibleEvents = pastEvents.slice(0, visibleCount);
+
+  const loadMoreEvents = () => {
+    setVisibleCount((prev) => prev + eventsPerPage);
+  };
 
   return (
-    <div>
+    <div className='bg-neutral-900'>
       <Navbar />
-      <div className="p-4 bg-neutral-900 min-h-screen">
-        <h2 className="text-3xl font-bold text-white ">Archived Events</h2>
-        {pastEvents.length === 0 ? (
-          <p className='text-white my-4'>No past events to show.</p>
-        ) : (
-          <div className="grid grid-cols-5  max-lg:grid-cols-4 max-md:grid-cols-3  max-sm:grid-cols-2 max-[380px]:grid-cols-1">
-            {pastEvents.map((event, index) => (
-               <Eventcard
-                              id={event._id}
-                              key={event._id || index}
-                              title={event.title}
-                              posterurl={event.posterurl}
-                              date={event.date}
-                              time={event.time}
-                              society={event.society}
-                              tags={event.tags}
-                            />
-            ))}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <div className="p-4  min-h-screen">
+            <h2 className="text-3xl font-sans  text-white">Archived Events</h2>
+            {visibleEvents.length === 0 ? (
+              <p className='text-white my-4'>No past events to show.</p>
+            ) : (
+              <div className="grid grid-cols-5 max-lg:grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 max-[380px]:grid-cols-1">
+                {visibleEvents.map((event, index) => (
+                  <Eventcard
+                    id={event._id}
+                    key={event._id || index}
+                    title={event.title}
+                    posterurl={event.posterurl}
+                    date={event.date}
+                    time={event.time}
+                    society={event.society}
+                    tags={event.tags}
+                  />
+                ))}
+              </div>
+            )}
           </div>
-        )}
-      </div>
+          {visibleCount < pastEvents.length && (
+            <div className="flex justify-center pb-3 mt-4 bg-neutral-900">
+              <button
+                className="px-5 py-2 bg-white rounded-md text-black transition"
+                onClick={loadMoreEvents}
+              >
+                Load More
+              </button>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }
