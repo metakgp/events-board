@@ -41,9 +41,9 @@ export default function UserSocCard({
     }
   };
   return (
-    <div className="bg-neutral-900" >
+    <div className="bg-neutral-900 " >
       <div
-        className="bg-neutral-800   text-white rounded-lg m-4 p-4 cursor-pointer "
+        className="bg-neutral-800    text-white rounded-lg m-4 p-4 cursor-pointer "
         onClick={goTopage}
       >
         <div className="font-semibold text-2xl mb-2 w-[100%]">{title}</div>

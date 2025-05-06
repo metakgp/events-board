@@ -1,24 +1,15 @@
-import { useState } from 'react'
+import { useState } from "react";
 
-
-import Events from './components/Events'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
+import Events from "./pages/Home";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 function App() {
-
-  return(
-    <div >
-<Navbar/>
-<Events/>
-  
+  return (
+    <div>
+      <Navbar />
+      <Events />
     </div>
-
-  )
- 
- 
- 
-
- 
+  );
 }
 
-export default App
+export default App;

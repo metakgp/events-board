@@ -39,12 +39,15 @@ export default function EventPage() {
 
   return (
     <div>
-      <Navbar />
+     
+     <Navbar />
+      
       {isLoading ?(
         <Loader/>
       ):(
      
    <div className="flex  bg-gradient-to-bl bg-neutral-900 min-h-screen max-[700px]:flex-col animate-fadeIn">
+    
    <div className="p-5 w-3/5  max-[700px]:w-full  ">
      <h1 className="text-5xl py-3  text-white  max-[400px]:text-4xl">{eventDetails.title.charAt(0).toUpperCase()+eventDetails.title.slice(1)}</h1>
      <div className=" my-3 pt-1 w-2/5  max-[700px]:w-[93%] max-[700px]:block hidden ">
@@ -52,7 +55,7 @@ export default function EventPage() {
    </div>  
 
      <p
-       className="text-xl py-2  px-2 font-poppins  text-white  animate-fadeIn max-[300px]:text-sm"
+       className="text-xl py-2   px-2 font-poppins  text-white  animate-fadeIn max-[300px]:text-sm"
        dangerouslySetInnerHTML={{
          __html: makeLinksClickable(eventDetails.description).replace(/\n/g, "<br>").replace(/<script.*?>.*?<\/script>/gi, ""),
        }}
