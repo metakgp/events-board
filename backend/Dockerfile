@@ -1,19 +1,25 @@
-#use nodejs 
+# Use official Node.js image
 FROM node:22-alpine
 
-#set working directory
+# Set timezone and working directory
+RUN apk --no-cache add tzdata bash ca-certificates && \
+    cp /usr/share/zoneinfo/Asia/Kolkata /etc/localtime && \
+    echo "Asia/Kolkata" > /etc/timezone
+
 WORKDIR /app
 
-#copy package.json and install dependencies
-COPY  package.json package-lock.json ./
-RUN npm install
+# Copy dependencies and install them
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 
-#copy the rest of the app
+# Copy the rest of the backend code
 COPY . .
 
-#exopose the port where server server runs
-EXPOSE 5000
+# Make the Metaploy postinstall script executable
+RUN chmod +x ./metaploy/postinstall.sh
 
-#start the backend server
+# Expose the backend port
+EXPOSE 8080
 
-CMD [ "npm","start" ]
+# Start the server via postinstall script
+CMD ["./metaploy/postinstall.sh", "npm", "start"]

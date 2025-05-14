@@ -1,5 +1,5 @@
 const express=require("express");
-require('dotenv').config({path:'../.env'});
+require('dotenv').config({path:'./.env'});
 const app=express();
 const eventRoute=require("./routes/event")
 const societyRoute=require("./routes/society")
@@ -9,13 +9,13 @@ const cookieParser = require("cookie-parser");
 
 
 app.use(cors({
-    origin: "http://127.0.0.1:5173", 
+    origin: "*", 
     credentials: true,               
   }));
 const mongoose=require("mongoose")
 
 // console.log(process.env.lol);
-const PORT=8000;
+const PORT=8080;
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

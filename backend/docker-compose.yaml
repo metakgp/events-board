@@ -1,0 +1,27 @@
+services:
+  events-board-backend:
+    build: .
+    container_name: events-board-backend
+    env_file:
+      - .env
+    networks:
+      metaploy-network:
+        aliases:
+          - events-board-backend
+      metaploy-private-network:
+    volumes:
+      - nginx-config-volume:/etc/nginx/sites-enabled
+
+networks:
+  metaploy-network:
+    external: true
+    name: metaploy-network
+  metaploy-private-network:
+    external: true
+    name: metaploy-private-network
+
+volumes:
+  nginx-config-volume:
+    external: true
+    name: metaploy-nginx-config-volume
+ 

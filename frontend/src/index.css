@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    background-color: #212020;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: auto ;
+  background-color: #212020;
+
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* IE and Edge */
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }
