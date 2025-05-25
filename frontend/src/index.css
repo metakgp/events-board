@@ -7,8 +7,9 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: auto ;
-  background-color: #212020;
+  overflow-x: hidden;
+  min-width: screen;
+  background-color: #171717;
 
   /* Firefox */
   scrollbar-width: none;

@@ -85,11 +85,11 @@ export default function Home() {
   const visibleEvents = filteredEvents.slice(0, visibleCount);
 
   return (
-    <div>
+    <div className="">
       {isLoading ? (
         <Loader />
       ) : (
-        <div>
+        <div >
           <h1 className="text-3xl  font-normal p-4    text-white bg-neutral-900">
             Latest Events
           </h1>

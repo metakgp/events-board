@@ -5,21 +5,27 @@ const Event = require("../models/Event");
 const verifyToken=require("../utils/auth")
 const fs = require("fs");
 const path = require('path');
-
+require('dotenv').config({ path: '../.env' });
+console.log("Backend:",process.env.BACKEND_URL)
+const BACKEND_URL=process.env.VITE_BACKEND_URL
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+     const ext = path.extname(file.originalname);
+    const name = path.basename(file.originalname, ext);
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, `${name}-${uniqueSuffix}${ext}`);
   },
 });
 
 const upload = multer({ storage });
 
 router.post("/upload", upload.single("poster"), (req, res) => {
+ 
   if (!req.file) return res.status(400).json({ error: "No file uploaded" });
-  const imageUrl = `http://localhost:8000/uploads/${req.file.filename}`;
+  const imageUrl = `${BACKEND_URL}/uploads/${req.file.filename}`;
 
   res.json({ imageUrl });
 });
@@ -112,16 +118,17 @@ router.patch("/update/:id", upload.single("poster"),verifyToken, async (req, res
     }
 
     let newPosterPath = oldEvent.posterurl; 
+console.log("oldEvent.posterurl:", oldEvent.posterurl);
 
-    const isNewPosterUploaded = eventDetails.posterurl && 
-    eventDetails.posterurl !== oldEvent.posterurl && 
-    !eventDetails.posterurl.includes("http://localhost:8000/");
+    const isNewPosterUploaded = eventDetails.posterurl &&
+      eventDetails.posterurl !== oldEvent.posterurl;
+   
   
     // If a new file is uploaded, delete the old image and update path
    
     if (isNewPosterUploaded) {
       console.log("hi iam deleting");
-      const oldPosterPath = oldEvent.posterurl.replace("http://localhost:8000/", ""); 
+      const oldPosterPath = oldEvent.posterurl.replace(`${BACKEND_URL}/`, ""); 
       const absoluteOldPath = path.join(__dirname, "..", oldPosterPath);
 
       console.log("trying delete ", absoluteOldPath);

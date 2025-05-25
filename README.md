@@ -21,11 +21,11 @@
      <img width="140" alt="image" src="https://raw.githubusercontent.com/metakgp/design/main/logos/logo.jpg">
   </a>
 
-  <h3 align="center">PROJECT_NAME</h3>
+  <h3 align="center">Events-Board</h3>
 
   <p align="center">
   <!-- UPDATE -->
-    <i>Project one liner slogan goes here</i>
+    <i>Site to list all upcoming eveents of kgp</i>
     <br />
     <a href="https://UPDATE.metakgp.org">Website</a>
     ·
@@ -82,33 +82,49 @@ _Detailed explaination of the project goes here_
 To set up a local instance of the application, follow the steps below.
 
 ### Prerequisites
-The following dependencies are required to be installed for the project to function properly:
-<!-- UPDATE -->
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+The following are required to be installed for the project to function properly:
+<!-- UPDATE --> 
+1.Node.js
+<br>
+2.npm 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Installation
 
-_Now that the environment has been set up and configured to properly compile and run the project, the next step is to install and configure the project locally on your system._
+_Follow the steps below to run the project locally._
 <!-- UPDATE -->
 1. Clone the repository
    ```sh
-   git clone https://github.com/metakgp/PROJECT_NAME.git
-   ```
-2. Make the script executable
-   ```sh
-   cd ./PROJECT_NAME
-   chmod +x ./PROJECT_NAME
-   ```
-3. Execute the script
-   ```sh
-   ./PROJECT_NAME
-   ```
 
+   git clone https://github.com/metakgp/events-board.git
+
+   cd events-board
+   ```
+2. Install Frontend Dependencies
+   ```sh
+   cd frontend
+   npm install 
+   ```
+3. Install Backend Dependencies
+   ```bash
+   cd backend 
+   npm install
+   ```
+4. Setup enviorment variables in the  Frontend and Backend directories
+
+   Create a ``.env`` file inside ``/frontend`` and ``/backend``  directory, And set up your environment variables. You can see .env.template for reference.
+
+5. Start Frontend
+   ```bash
+    cd frontend 
+    npm run dev
+   ```
+6. Start Backend
+   ```bash
+    cd backend 
+    nodemon start or node index.js
+    ```   
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 

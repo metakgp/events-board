@@ -18,7 +18,8 @@ export default function Signin() {
       mail,
       password,
     };
-    try{
+    try {
+      console.log("hi this is api",api)
       const response = await api.post(
         "/user/signin",
         userData
