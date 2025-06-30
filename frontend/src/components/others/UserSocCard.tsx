@@ -1,7 +1,9 @@
 import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../utils/api";
+import api from "../../utils/api";
+import { EventType } from "../../types/event";
+import { UserSocCardType } from "../../types/event";
 export default function UserSocCard({
   id,
   title,
@@ -9,7 +11,7 @@ export default function UserSocCard({
   tags,
   setErrorMessage,
   setuserEvents,
-}) {
+}:UserSocCardType) {
   const navigate = useNavigate();
   const handleDelete = async () => {
     try {
@@ -17,7 +19,7 @@ export default function UserSocCard({
         `/event/delete/${id}`
       );
       if (response.data.message === "ok") {
-        setuserEvents((prevEvents) =>
+        setuserEvents((prevEvents: EventType[]) =>
           prevEvents.filter((event) => event._id != id)
         );
         navigate("/dashboard");

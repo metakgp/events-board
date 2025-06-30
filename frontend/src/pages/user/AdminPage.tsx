@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/global/Navbar";
 
-import SocietyCard from "../components/SocietyCard";
-import api from "../utils/api";
+import SocietyCard from "../../components/others/SocietyCard";
+import api from "../../utils/api";
 import { useNavigate } from "react-router-dom";
+import { SocCardType } from "../../types/cards";
 export default function AdminPage() {
-  const [pendingSocieties, setPendingSocieties] = useState([]);
+  const [pendingSocieties, setPendingSocieties] = useState<SocCardType[]|[]>([]);
   const [refresh,setRefresh]=useState(false);
   const navigate=useNavigate();
   useEffect(() => {
@@ -22,7 +23,7 @@ if(response.data.message==="ok"){
  
 }
 else{
-  console.log("Error fetching pending societies:", err);
+  console.log("Error fetching pending societies:");
   navigate("/signin");
 }
 

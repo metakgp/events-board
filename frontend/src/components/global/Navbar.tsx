@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { Menu, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import api from "../utils/api";
+import api from "../../utils/api";
+import { UserType } from "../../types/user";
 export default function Navbar() {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const handleLogout = async () => {
     try {
@@ -94,6 +95,7 @@ export default function Navbar() {
         </Link>
         {user?.role && (
           <Link
+            to={"/"}
             onClick={handleLogout}
             className="hover:text-black hover:bg-[#f5f3f3] rounded-md cursor-pointer p-3 transition duration-400"
           >

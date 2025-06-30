@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/global/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Error from "../components/Error";
-import crossMark from "/assets/cross.png"
-import api from "../utils/api";
+import Error from "../../components/global/Error";
+import crossMark from "../../assets/cross.png"
+import api from "../../utils/api";
+import { UserType } from "../../types/user";
+
 export default function AddEvent() {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [posterOption, setPosterOption] = useState("url");
-  const [posterFile, setPosterFile] = useState("");
+  const [posterFile, setPosterFile] = useState<File | null>(null);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [posterurl, setPosterUrl] = useState("");
   const [society, setSociety] = useState("");
-  const [selectedTags,setSelectedTags]=useState([]);
+  const [selectedTags,setSelectedTags]=useState<string[]>([]);
   const [errorMessage,setErrorMessage]=useState("");
-  const [user,setUser]=useState([]);
+  const [user,setUser]=useState<UserType|null>(null);
   //predefined tags
   const availableTags=[
     "Cultural",
@@ -50,7 +52,7 @@ useEffect(()=>{
 },[])
 
 
-const handleTagSelect=(tag)=>{
+const handleTagSelect=(tag:string)=>{
   if(!selectedTags.includes(tag)){
     setSelectedTags([...selectedTags,tag]);
   }
@@ -59,12 +61,12 @@ const handleTagSelect=(tag)=>{
   }
 
 }
-const handleRemoveTag=(tag)=>{
+const handleRemoveTag=(tag:string)=>{
   setSelectedTags(selectedTags.filter((t)=>t!=tag));
 }
 
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
      
     let posterPath = posterurl;
@@ -92,7 +94,7 @@ const handleRemoveTag=(tag)=>{
       posterurl: posterPath,
       time,
       society,
-      createdBy:user.mail,
+      createdBy:user?.mail,
       selectedTags,
     };
 
@@ -186,7 +188,7 @@ const handleRemoveTag=(tag)=>{
                     className="w-full text-white px-4 py-2 border rounded-lg"
                     type="file"
                     accept="image/*"
-                    onChange={(e) => setPosterFile(e.target.files[0])}
+                    onChange={(e) => setPosterFile(e.target.files && e.target.files[0] ? e.target.files[0] : null)}
                   />
                 </div>
               )}
@@ -259,7 +261,7 @@ const handleRemoveTag=(tag)=>{
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent"
                   placeholder="Enter description"
                   name="description"
-                  rows="8"
+                  rows={8}
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
