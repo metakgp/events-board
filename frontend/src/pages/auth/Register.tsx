@@ -2,9 +2,9 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"
-import Error from "../components/Error";
-import Navbar from "../components/Navbar";
-import api from "../utils/api";
+import Error from "../../components/global/Error";
+import Navbar from "../../components/global/Navbar";
+import api from "../../utils/api";
 export default function Register() {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
@@ -20,7 +20,7 @@ const phoneRegx=/^\+?[1-9]\d{1,14}$/;
   const navigate=useNavigate();
   
   
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setErrorMessage("");
     const SocietyData={

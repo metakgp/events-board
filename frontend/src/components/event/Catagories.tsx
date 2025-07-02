@@ -1,13 +1,13 @@
 import React from "react";
-
-export default function Categories({ onSortChange, onCategoryChange }) {
-  const handleSortChange = (e) => {
+import { CatagoryType } from "../../types/functions";
+export default function Categories({ onSortChange, onCategoryChange }:CatagoryType) {
+  const handleSortChange = (e:React.ChangeEvent<HTMLSelectElement>) => {
     e.stopPropagation(); 
     const sortOption = e.target.value;
     onSortChange(sortOption);
   };
 
-  const handleCategoryChange = (e) => {
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.stopPropagation(); 
     const category = e.target.value;
     onCategoryChange(category);

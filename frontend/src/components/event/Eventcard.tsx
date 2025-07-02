@@ -4,12 +4,13 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-export default function Eventcard({ id, title, posterurl, date, time,society, tags }) {
-  const formatDate=(dateString)=>{
+import { EventType } from "../../types/event";
+export default function Eventcard({ id, title, posterurl, date, time,society, tags }:EventType) {
+  const formatDate=(dateString:string)=>{
 const dateObj=new Date(dateString)
 return dateObj.toLocaleDateString("en-GB")
   }
-  const formatTime = (time) => {
+  const formatTime = (time:string) => {
     if (!time) return "";
     return new Date(`1970-01-01T${time}`).toLocaleTimeString([], {
       hour: "2-digit",

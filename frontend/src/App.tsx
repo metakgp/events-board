@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-import Events from "./pages/Home";
-import Navbar from "./components/Navbar";
+import Home from "./pages/user/Home";
+import Navbar from "./components/global/Navbar";
 
 function App() {
   return (
     <div>
       <Navbar />
-      <Events />
+    <Home />
     </div>
   );
 }

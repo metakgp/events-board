@@ -1,8 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import api from "../utils/api";
-export default function SocietyCard({ id, name, mail, phone, description ,onApprove,onDecline}) {
+import { SocCardType } from "../../types/cards";
+import api from "../../utils/api";
+export default function SocietyCard({ id, name, mail, phone, description ,onApprove,onDecline}:SocCardType) {
   const navigate=useNavigate();
 
   const handleApprove=async ()=>{

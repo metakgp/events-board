@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/global/Navbar";
 import axios from "axios";
-import Error from "../components/Error";
+import Error from "../../components/global/Error";
 import crossMark from "/assets/cross.png";
 import { jwtDecode } from "jwt-decode";
-import api from "../utils/api";
-import Loader from "../components/Loader";
+import api from "../../utils/api";
+import Loader from "../../components/global/Loader";
+import { UserType } from "../../types/user";
 export default function EditPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -14,15 +15,15 @@ export default function EditPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [posterOption, setPosterOption] = useState("url");
-  const [posterFile, setPosterFile] = useState(null);
+  const [posterFile, setPosterFile] = useState<File | null>(null);
   const [posterurl, setPosterUrl] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [society, setSociety] = useState("");
-  const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
-const [user,setUser]=useState([])
-const [isLoading,setIsLoading]=useState(true)
+  const [user, setUser] = useState<UserType|null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const availableTags = [
     "Cultural",
     "Lecture",
@@ -32,29 +33,22 @@ const [isLoading,setIsLoading]=useState(true)
     "Competition",
     "Club",
   ];
-  useEffect(()=>{
- 
-    const fetchUser=async()=>{
-      try{
-        const response=await api.get("/user/me")
-        setUser(response.data)
-        
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await api.get("/user/me");
+        setUser(response.data);
+      } catch (err) {
+        console.log(err);
       }
-    catch(err){
-      console.log(err);
-    } 
+    };
 
-  }
-
-  fetchUser();
-
-},[])
+    fetchUser();
+  }, []);
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
-        const response = await api.get(
-          `/event/page/${id}`
-        );
+        const response = await api.get(`/event/page/${id}`);
         const event = response.data;
 
         setTitle(event.title);
@@ -66,8 +60,7 @@ const [isLoading,setIsLoading]=useState(true)
         setSelectedTags(event.tags || []);
       } catch (error) {
         console.error("Error fetching event details:", error);
-      }
-      finally{
+      } finally {
         setIsLoading(false);
       }
     };
@@ -75,7 +68,7 @@ const [isLoading,setIsLoading]=useState(true)
     fetchEventDetails();
   }, [id]);
 
-  const handleTagSelect = (tag) => {
+  const handleTagSelect = (tag:string) => {
     setSelectedTags((prevTags) =>
       prevTags.includes(tag)
         ? prevTags.filter((t) => t !== tag)
@@ -83,13 +76,12 @@ const [isLoading,setIsLoading]=useState(true)
     );
   };
 
-  const handleRemoveTag = (tag) => {
+  const handleRemoveTag = (tag:string) => {
     setSelectedTags((prevTags) => prevTags.filter((t) => t !== tag));
   };
 
-  const handleSave = async (e) => {
+  const handleSave = async (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
 
     let posterPath = posterurl;
     if (posterOption === "file" && posterFile) {
@@ -97,10 +89,7 @@ const [isLoading,setIsLoading]=useState(true)
       formData.append("poster", posterFile);
 
       try {
-        const uploadRes = await api.post(
-          "/event/upload",
-          formData,
-        );
+        const uploadRes = await api.post("/event/upload", formData);
         posterPath = uploadRes.data.imageUrl;
       } catch (error) {
         console.error("Error uploading file:", error);
@@ -115,16 +104,12 @@ const [isLoading,setIsLoading]=useState(true)
       date,
       time,
       society,
-      createdBy:user.mail,
+      createdBy: user?.mail,
       selectedTags,
     };
 
     try {
-      const result = await api.patch(
-        `/event/update/${id}`,
-        updatedEventData,
-        
-      );
+      const result = await api.patch(`/event/update/${id}`, updatedEventData);
 
       if (result.data.message === "ok") {
         navigate("/dashboard");
@@ -143,11 +128,10 @@ const [isLoading,setIsLoading]=useState(true)
       <Navbar />
       {errorMessage && <Error ErrorMessage={errorMessage} />}
       <div className="flex justify-center items-center min-h-screen bg-neutral-900">
-        {
-          isLoading?(
-            <Loader/>
-          ):(
-            <form className="w-full max-w-md bg-neutral-800 shadow-md rounded-lg p-6 m-3">
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <form className="w-full max-w-md bg-neutral-800 shadow-md rounded-lg p-6 m-3">
             <h2 className="text-2xl font-bold mb-6 text-white text-center">
               Edit Event
             </h2>
@@ -164,7 +148,7 @@ const [isLoading,setIsLoading]=useState(true)
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </div>
-  
+
               <div>
                 <label className="block text-sm font-medium text-white mb-2">
                   Poster Option
@@ -192,7 +176,7 @@ const [isLoading,setIsLoading]=useState(true)
                   </label>
                 </div>
               </div>
-  
+
               {posterOption === "url" && (
                 <input
                   className="w-full px-4 py-2 border rounded-lg"
@@ -202,16 +186,22 @@ const [isLoading,setIsLoading]=useState(true)
                   onChange={(e) => setPosterUrl(e.target.value)}
                 />
               )}
-  
+
               {posterOption === "file" && (
                 <input
                   className="w-full text-white px-4 py-2 border rounded-lg"
                   type="file"
                   accept="image/*"
-                  onChange={(e) => setPosterFile(e.target.files[0])}
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      setPosterFile(e.target.files[0]);
+                    } else {
+                      setPosterFile(null);
+                    }
+                  }}
                 />
               )}
-  
+
               <div>
                 <label className="block text-sm font-medium text-white mb-2">
                   Society
@@ -244,7 +234,7 @@ const [isLoading,setIsLoading]=useState(true)
                     </button>
                   ))}
                 </div>
-  
+
                 <label className="block text-sm font-medium text-white mt-4">
                   Selected
                 </label>
@@ -274,15 +264,15 @@ const [isLoading,setIsLoading]=useState(true)
                   )}
                 </div>
               </div>
-  
+
               <textarea
                 className="w-full px-4 py-2 border rounded-lg"
                 placeholder="Enter description"
-                rows="8"
+                rows={8}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
-  
+
               <div className="flex space-x-4">
                 <input
                   className="px-4 py-2 border rounded-lg"
@@ -297,7 +287,7 @@ const [isLoading,setIsLoading]=useState(true)
                   onChange={(e) => setTime(e.target.value)}
                 />
               </div>
-  
+
               <button
                 className="w-full bg-black text-white py-2 rounded-lg hover:bg-white hover:text-black"
                 onClick={handleSave}
@@ -306,9 +296,7 @@ const [isLoading,setIsLoading]=useState(true)
               </button>
             </div>
           </form>
-          )
-        }
-       
+        )}
       </div>
     </>
   );

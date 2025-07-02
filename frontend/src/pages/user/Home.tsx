@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Eventcard from "../components/Eventcard";
-import Catagories from "../components/Catagories";
-import api from "../utils/api";
-import Loader from "../components/Loader";
-
+import Eventcard from "../../components/event/Eventcard";
+import Catagories from "../../components/event/Catagories";
+import api from "../../utils/api";
+import Loader from "../../components/global/Loader";
+import { EventType } from "../../types/event";
 export default function Home() {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState<EventType[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredEvents, setFilteredEvents] = useState([]);
-  const [currentEvents, setCurrentEvents] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState<EventType[]>([]);
+  const [currentEvents, setCurrentEvents] = useState<EventType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const CurrentDate = new Date();
   const [visibleCount, setVisibleCount] = useState(15);
   const eventsPerPage = 15;
-  const getCurrentEvents = (event) => {
+  const getCurrentEvents = (event:EventType) => {
     const eventDate = new Date(`${event.date}T${event.time}`);
     return eventDate > CurrentDate;
   };
@@ -49,13 +49,13 @@ export default function Home() {
     setVisibleCount(eventsPerPage);
   }, [searchQuery, currentEvents]);
 
-  const handleCategoryChange = (type) => {
+  const handleCategoryChange = (type:string) => {
     if (type === "") {
       setFilteredEvents(currentEvents);
     } else {
       setFilteredEvents(
         currentEvents.filter((event) =>
-          event.tags.some((tag) =>
+          event.tags.some((tag:string) =>
             tag.toLowerCase().includes(type.toLowerCase())
           )
         )
@@ -64,14 +64,14 @@ export default function Home() {
     setVisibleCount(eventsPerPage);
   };
 
-  const handleSortChange = (sortOption) => {
+  const handleSortChange = (sortOption:string) => {
     let sortedEvents = [...filteredEvents];
 
     if (sortOption === "time") {
       sortedEvents.sort((a, b) => {
         const timeA = new Date(`${a.date}T${a.time}`);
         const timeB = new Date(`${b.date}T${b.time}`);
-        return timeA - timeB;
+        return timeA.getTime() - timeB.getTime();
       });
     }
 

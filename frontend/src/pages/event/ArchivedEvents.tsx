@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar';
-import Eventcard from '../components/Eventcard';
-import api from '../utils/api';
-import Loader from '../components/Loader';
-
+import Navbar from '../../components/global/Navbar';
+import Eventcard from '../../components/event/Eventcard';
+import api from '../../utils/api';
+import Loader from '../../components/global/Loader';
+import { EventType } from '../../types/event';
 export default function ArchivedEvents() {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState<EventType[]>([]);
   const [visibleCount, setVisibleCount] = useState(15);
   const [isLoading, setIsLoading] = useState(true);
   const eventsPerPage = 15;
@@ -26,7 +26,7 @@ export default function ArchivedEvents() {
 
   const CurrentDate = new Date();
 
-  const CheckExpiry = (event) => {
+  const CheckExpiry = (event:EventType) => {
     const eventDate = new Date(`${event.date}T${event.time}`);
     return eventDate < CurrentDate;
   };

@@ -1,17 +1,17 @@
 import React from "react";
 import { useState } from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/global/Navbar";
 import axios from "axios";
-import Error from "../components/Error";
+import Error from "../../components/global/Error";
 import { useNavigate } from "react-router-dom";
-import api from "../utils/api";
+import api from "../../utils/api";
 export default function Signin() {
   const navigate = useNavigate();
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage,setErrorMessage]=useState("");
-  
-  const handleSubmit = async (e) => {
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setErrorMessage("");
     const userData = {
@@ -19,31 +19,21 @@ export default function Signin() {
       password,
     };
     try {
-      console.log("hi this is api",api)
-      const response = await api.post(
-        "/user/signin",
-        userData
-      );
-      console.log(response)
-      if (response.data.message==="ok") {
-       
-   
-
+      console.log("hi this is api", api);
+      const response = await api.post("/user/signin", userData);
+      console.log(response);
+      if (response.data.message === "ok") {
         navigate("/");
       } else {
-       
         // alert(JSON.stringify(response.data.message));
-      setErrorMessage(response.data.message);    
-        window.scrollTo(0,0);
-       
+        setErrorMessage(response.data.message);
+        window.scrollTo(0, 0);
       }
-    }
-    catch(err){
-      console.log(err)
+    } catch (err) {
+      console.log(err);
       setErrorMessage("Something went wrong");
       window.scrollTo(0, 0);
     }
-    
   };
   return (
     <div>
@@ -51,8 +41,7 @@ export default function Signin() {
         <Navbar />
         {errorMessage && <Error ErrorMessage={errorMessage} />}
       </div>
-      <div className="bg-neutral-900 flex text-white items-center justify-center min-h-screen " >
-        
+      <div className="bg-neutral-900 flex text-white items-center justify-center min-h-screen ">
         <div className="bg-neutral-800 p-6 m-3 rounded-lg shadow-lg w-full max-w-lg ">
           <h2 className="text-2xl font-bold mb-4 text-center">Signin</h2>
           <form>

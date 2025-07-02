@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/global/Navbar";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
-import UserSocCard from "../components/UserSocCard";
-import { Navigate } from "react-router-dom";
-import Error from "../components/Error";
-import api from "../utils/api";
-import Loader from "../components/Loader"; 
+import UserSocCard from "../../components/others/UserSocCard";
+import { Navigate, useNavigate } from "react-router-dom";
+import Error from "../../components/global/Error";
+import api from "../../utils/api";
+import Loader from "../../components/global/Loader"; 
+import { EventType } from "../../types/event";
+import { UserType } from "../../types/user";
 
 export default function Dashboard() {
   const [ErrorMessage, setErrorMessage] = useState("");
-  const [userEvents, setuserEvents] = useState([]);
-  const [user, setUser] = useState({});
+  const [userEvents, setuserEvents] = useState<EventType[]|[]>([]);
+  const [user, setUser] = useState<UserType|null>(null);
   const [isLoading, setIsLoading] = useState(true);
 const [currentPage,setCurrentPage]=useState(1);
-const eventsPerPage=5;
+  const eventsPerPage = 5;
+  const navigate=useNavigate()
   useEffect(() => {
     const fetchuserEvents = async () => {
       try {
@@ -45,7 +48,8 @@ const eventsPerPage=5;
   const FirstEventIndex=LastEventIndex-eventsPerPage;
   const currentEvents=userEvents.slice(FirstEventIndex,LastEventIndex);
   const totalPages=Math.ceil(userEvents.length/eventsPerPage) 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber:number) => setCurrentPage(pageNumber);
+
 
   return (
     <div className="bg-neutral-900 min-h-screen text-white">
@@ -57,7 +61,7 @@ const eventsPerPage=5;
         
           {ErrorMessage && <Error ErrorMessage={ErrorMessage} />}
           <div className="flex space-x-2">
-            {user.role === "admin" && (
+            {user?.role === "admin" && (
               <div className="font-bold text-4xl p-2 m-4">Welcome Admin!</div>
             )}
             
