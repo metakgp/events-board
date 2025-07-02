@@ -1,12 +1,13 @@
 import { useState } from "react";
 
-import EventPage from "./pages/event/EventPage";
+import Home from "./pages/user/Home";
 import Navbar from "./components/global/Navbar";
 
 function App() {
   return (
     <div>
-    <EventPage/>
+      <Navbar />
+    <Home />
     </div>
   );
 }

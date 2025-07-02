@@ -69,7 +69,7 @@ router.post("/add",verifyToken, async (req, res) => {
 router.get("/", async (req, res) => {
   try {
    
-    const events = await Event.find();
+    const events = await Event.find({});
     res.status(200).json(events);
   } catch (err) {
     res.status(500).json({ message: "Internal server error" });
@@ -112,6 +112,9 @@ router.patch("/update/:id", upload.single("poster"),verifyToken, async (req, res
 
   try {
     // Get the old event before updating
+    if (!id) {
+      return res.status(404).json({ message: "Event not found" });
+    }
     const oldEvent = await Event.findById(id);
     if (!oldEvent) {
       return res.status(404).json({ message: "Event not found" });
