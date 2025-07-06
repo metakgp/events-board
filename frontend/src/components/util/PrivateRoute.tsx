@@ -3,8 +3,14 @@ import { ReactNode, useEffect, useState } from "react";
 import api from "../../utils/api";
 import Loader from "../global/Loader";
 
-const PrivateRoute = ({ children, allowedRoles }:{children:ReactNode,allowedRoles:string[]}) => {
-  const [authorized, setAuthorized] = useState<boolean|null>(null);
+const PrivateRoute = ({
+  children,
+  allowedRoles,
+}: {
+  children: ReactNode;
+  allowedRoles: string[];
+}) => {
+  const [authorized, setAuthorized] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

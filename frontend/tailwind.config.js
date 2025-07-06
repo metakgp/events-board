@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       animation: {
@@ -16,15 +13,13 @@ export default {
         },
       },
 
-
-
       fontFamily: {
-        roboto: ['Roboto', 'sans-serif'],
-        poppins: ['Poppins', 'sans-serif'],
-     
-        sans: ['"Titillium Web"', 'sans-serif'],
-      },  
+        roboto: ["Roboto", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
+
+        sans: ['"Titillium Web"', "sans-serif"],
+      },
     },
   },
   plugins: [],
-}
+};

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import Navbar from '../../components/global/Navbar';
-import Eventcard from '../../components/event/Eventcard';
-import api from '../../utils/api';
-import Loader from '../../components/global/Loader';
-import { EventType } from '../../types/event';
+import React, { useState, useEffect } from "react";
+import Navbar from "../../components/global/Navbar";
+import Eventcard from "../../components/event/Eventcard";
+import api from "../../utils/api";
+import Loader from "../../components/global/Loader";
+import { EventType } from "../../types/event";
 export default function ArchivedEvents() {
   const [events, setEvents] = useState<EventType[]>([]);
   const [visibleCount, setVisibleCount] = useState(15);
@@ -26,7 +26,7 @@ export default function ArchivedEvents() {
 
   const CurrentDate = new Date();
 
-  const CheckExpiry = (event:EventType) => {
+  const CheckExpiry = (event: EventType) => {
     const eventDate = new Date(`${event.date}T${event.time}`);
     return eventDate < CurrentDate;
   };
@@ -39,7 +39,7 @@ export default function ArchivedEvents() {
   };
 
   return (
-    <div className='bg-neutral-900'>
+    <div className="bg-neutral-900">
       <Navbar />
       {isLoading ? (
         <Loader />
@@ -48,7 +48,7 @@ export default function ArchivedEvents() {
           <div className="p-4  min-h-screen">
             <h2 className="text-3xl font-sans  text-white">Archived Events</h2>
             {visibleEvents.length === 0 ? (
-              <p className='text-white my-4'>No past events to show.</p>
+              <p className="text-white my-4">No past events to show.</p>
             ) : (
               <div className="grid grid-cols-5 max-lg:grid-cols-4 max-md:grid-cols-3 max-sm:grid-cols-2 max-[380px]:grid-cols-1">
                 {visibleEvents.map((event, index) => (

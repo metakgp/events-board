@@ -52,7 +52,7 @@ if (rootElement) {
         </Routes>
         <Footer />
       </BrowserRouter>
-    </StrictMode>
+    </StrictMode>,
   );
 } else {
   throw new Error('Root element with id "root" not found');

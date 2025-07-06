@@ -29,15 +29,13 @@ const EventSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  createdBy:{
+  createdBy: {
     type: String,
-  }
-,
+  },
   tags: {
     type: [String],
     require: false,
   },
-
 });
 
 const Event = model("event", EventSchema);

@@ -3,7 +3,7 @@ import Navbar from "../../components/global/Navbar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Error from "../../components/global/Error";
-import crossMark from "../../assets/cross.png"
+import crossMark from "../../assets/cross.png";
 import api from "../../utils/api";
 import { UserType } from "../../types/user";
 
@@ -17,11 +17,11 @@ export default function AddEvent() {
   const [time, setTime] = useState("");
   const [posterurl, setPosterUrl] = useState("");
   const [society, setSociety] = useState("");
-  const [selectedTags,setSelectedTags]=useState<string[]>([]);
-  const [errorMessage,setErrorMessage]=useState("");
-  const [user,setUser]=useState<UserType|null>(null);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [user, setUser] = useState<UserType | null>(null);
   //predefined tags
-  const availableTags=[
+  const availableTags = [
     "Cultural",
     "Lecture",
     "Tech",
@@ -29,46 +29,35 @@ export default function AddEvent() {
     "Hall",
     "Competition",
     "Club",
-
-
   ];
 
-useEffect(()=>{
- 
-    const fetchUser=async()=>{
-      try{
-        const response=await api.get("/user/me")
-        setUser(response.data)
-        
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await api.get("/user/me");
+        setUser(response.data);
+      } catch (err) {
+        console.log(err);
       }
-    catch(err){
-      console.log(err);
-    } 
+    };
 
-  }
+    fetchUser();
+  }, []);
 
-  fetchUser();
+  const handleTagSelect = (tag: string) => {
+    if (!selectedTags.includes(tag)) {
+      setSelectedTags([...selectedTags, tag]);
+    } else {
+      setSelectedTags(selectedTags.filter((t) => t != tag));
+    }
+  };
+  const handleRemoveTag = (tag: string) => {
+    setSelectedTags(selectedTags.filter((t) => t != tag));
+  };
 
-},[])
-
-
-const handleTagSelect=(tag:string)=>{
-  if(!selectedTags.includes(tag)){
-    setSelectedTags([...selectedTags,tag]);
-  }
-  else{
-    setSelectedTags(selectedTags.filter((t)=>t!=tag));
-  }
-
-}
-const handleRemoveTag=(tag:string)=>{
-  setSelectedTags(selectedTags.filter((t)=>t!=tag));
-}
-
-
-  const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-     
+
     let posterPath = posterurl;
 
     if (posterOption === "file" && posterFile) {
@@ -76,10 +65,7 @@ const handleRemoveTag=(tag:string)=>{
       formData.append("poster", posterFile);
 
       try {
-        const uploadRes = await api.post(
-          "/event/upload",
-          formData
-        );
+        const uploadRes = await api.post("/event/upload", formData);
         posterPath = uploadRes.data.imageUrl;
       } catch (error) {
         console.error("Error uploading file:", error);
@@ -94,30 +80,24 @@ const handleRemoveTag=(tag:string)=>{
       posterurl: posterPath,
       time,
       society,
-      createdBy:user?.mail,
+      createdBy: user?.mail,
       selectedTags,
     };
 
-  const result = await api.post(
-      "/event/add",
-      eventData,
-    );
+    const result = await api.post("/event/add", eventData);
     if (result.data.message === "ok") {
       navigate("/");
     } else {
       setErrorMessage(result.data.message);
-      window.scrollTo(0,0);
-      
-
+      window.scrollTo(0, 0);
     }
   };
-
 
   return (
     <>
       <div>
         <Navbar />
-        {errorMessage && <Error ErrorMessage={errorMessage}/>}
+        {errorMessage && <Error ErrorMessage={errorMessage} />}
         <div className="flex justify-center  items-center min-h-screen bg-neutral-900">
           <form className="w-full max-w-md bg-neutral-800 shadow-md rounded-lg p-6  m-3">
             <h2 className="text-2xl font-bold mb-6  text-white text-center">
@@ -152,9 +132,8 @@ const handleRemoveTag=(tag:string)=>{
                     />
                     <span className="ml-2">Use URL</span>
                   </label>
-                  <label >
+                  <label>
                     <input
-                    
                       type="radio"
                       name="posterOption"
                       value="file"
@@ -188,7 +167,13 @@ const handleRemoveTag=(tag:string)=>{
                     className="w-full text-white px-4 py-2 border rounded-lg"
                     type="file"
                     accept="image/*"
-                    onChange={(e) => setPosterFile(e.target.files && e.target.files[0] ? e.target.files[0] : null)}
+                    onChange={(e) =>
+                      setPosterFile(
+                        e.target.files && e.target.files[0]
+                          ? e.target.files[0]
+                          : null,
+                      )
+                    }
                   />
                 </div>
               )}
@@ -214,7 +199,6 @@ const handleRemoveTag=(tag:string)=>{
                       key={tag}
                       type="button"
                       onClick={() => handleTagSelect(tag)}
-                      
                       className={`px-3 py-1 rounded-full text-sm ${
                         selectedTags.includes(tag)
                           ? "bg-orange-500/60 text-white"
@@ -225,15 +209,14 @@ const handleRemoveTag=(tag:string)=>{
                     </button>
                   ))}
                 </div>
-                
+
                 <label className="block text-sm font-medium text-white mt-4">
                   Selected
                 </label>
                 <div className="mt-3 flex flex-wrap gap-2">
-
-                  {selectedTags.length===0?
-                  (<p className="text-white text-sm "> No tags selected</p>):(
-                  
+                  {selectedTags.length === 0 ? (
+                    <p className="text-white text-sm "> No tags selected</p>
+                  ) : (
                     selectedTags.map((tag) => (
                       <span
                         key={tag}
@@ -245,14 +228,17 @@ const handleRemoveTag=(tag:string)=>{
                           onClick={() => handleRemoveTag(tag)}
                           className="ml-2 text-white hover:text-black focus:outline-none "
                         >
-                          <img src={crossMark} alt="Remove" className="w-5 inline" />
+                          <img
+                            src={crossMark}
+                            alt="Remove"
+                            className="w-5 inline"
+                          />
                         </button>
                       </span>
-                    ))   
-                  )
-                 }
+                    ))
+                  )}
                 </div>
-                </div>
+              </div>
               <div>
                 <label className="block text-sm font-medium text-white mb-2">
                   Description
