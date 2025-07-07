@@ -20,13 +20,11 @@ export default function Navbar() {
     }
   };
 
-  
-  useEffect(() => { 
+  useEffect(() => {
     const fetchUser = async () => {
       try {
         const res = await api.get("/user/me");
         setUser(res.data);
-       
       } catch (err) {
         console.log("Not authenticated");
         setUser(null);
@@ -40,7 +38,6 @@ export default function Navbar() {
     <nav className="bg-black text-gray-300 p-2 flex justify-between items-center">
       <div className="flex items-center space-x-2 p-2">
         <span className="font-bold text-white  text-lg">metaKGP</span>
-        
       </div>
 
       <button
@@ -51,16 +48,15 @@ export default function Navbar() {
       >
         {isOpen ? <X size={28} /> : <Menu size={28} />}
       </button>
-     <div
-  className={`flex flex-col min-[430px]:flex-row min-[430px]:space-x-8 max-[430px]:z-50
+      <div
+        className={`flex flex-col min-[430px]:flex-row min-[430px]:space-x-8 max-[430px]:z-50
 
     max-[430px]:transition-[max-height,opacity] max-[430px]:duration-500 
     max-[430px]:ease-in-out max-[430px]:overflow-hidden 
     max-[430px]:bg-black max-[430px]:w-full max-[430px]:top-14 
     max-[430px]:absolute max-[430px]:right-0 
     ${isOpen ? "max-[430px]:max-h-[500px] max-[430px]:opacity-100" : "max-[430px]:max-h-0 max-[430px]:opacity-0"}`}
->
-
+      >
         {!user && (
           <Link
             to="/register"

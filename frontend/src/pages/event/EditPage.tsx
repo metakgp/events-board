@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../components/global/Navbar";
 import axios from "axios";
 import Error from "../../components/global/Error";
-import crossMark from "/assets/cross.png";
+import crossMark from "../../assets/cross.png";
 import { jwtDecode } from "jwt-decode";
 import api from "../../utils/api";
 import Loader from "../../components/global/Loader";
@@ -22,7 +22,7 @@ export default function EditPage() {
   const [society, setSociety] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const [user, setUser] = useState<UserType|null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const availableTags = [
     "Cultural",
@@ -68,19 +68,19 @@ export default function EditPage() {
     fetchEventDetails();
   }, [id]);
 
-  const handleTagSelect = (tag:string) => {
+  const handleTagSelect = (tag: string) => {
     setSelectedTags((prevTags) =>
       prevTags.includes(tag)
         ? prevTags.filter((t) => t !== tag)
-        : [...prevTags, tag]
+        : [...prevTags, tag],
     );
   };
 
-  const handleRemoveTag = (tag:string) => {
+  const handleRemoveTag = (tag: string) => {
     setSelectedTags((prevTags) => prevTags.filter((t) => t !== tag));
   };
 
-  const handleSave = async (e:React.MouseEvent<HTMLButtonElement>) => {
+  const handleSave = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     let posterPath = posterurl;

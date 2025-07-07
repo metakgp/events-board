@@ -14,7 +14,7 @@ export default function Home() {
   const CurrentDate = new Date();
   const [visibleCount, setVisibleCount] = useState(15);
   const eventsPerPage = 15;
-  const getCurrentEvents = (event:EventType) => {
+  const getCurrentEvents = (event: EventType) => {
     const eventDate = new Date(`${event.date}T${event.time}`);
     return eventDate > CurrentDate;
   };
@@ -44,27 +44,27 @@ export default function Home() {
           event.title.toLowerCase().includes(searchQuery) ||
           event.tags.some((tag) => tag.toLowerCase().includes(searchQuery))
         );
-      })
+      }),
     );
     setVisibleCount(eventsPerPage);
   }, [searchQuery, currentEvents]);
 
-  const handleCategoryChange = (type:string) => {
+  const handleCategoryChange = (type: string) => {
     if (type === "") {
       setFilteredEvents(currentEvents);
     } else {
       setFilteredEvents(
         currentEvents.filter((event) =>
-          event.tags.some((tag:string) =>
-            tag.toLowerCase().includes(type.toLowerCase())
-          )
-        )
+          event.tags.some((tag: string) =>
+            tag.toLowerCase().includes(type.toLowerCase()),
+          ),
+        ),
       );
     }
     setVisibleCount(eventsPerPage);
   };
 
-  const handleSortChange = (sortOption:string) => {
+  const handleSortChange = (sortOption: string) => {
     let sortedEvents = [...filteredEvents];
 
     if (sortOption === "time") {
@@ -89,7 +89,7 @@ export default function Home() {
       {isLoading ? (
         <Loader />
       ) : (
-        <div >
+        <div>
           <h1 className="text-3xl  font-normal p-4    text-white bg-neutral-900">
             Latest Events
           </h1>

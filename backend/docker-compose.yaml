@@ -24,4 +24,3 @@ volumes:
   nginx-config-volume:
     external: true
     name: metaploy-nginx-config-volume
- 

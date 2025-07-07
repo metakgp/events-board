@@ -123,7 +123,7 @@ _Follow the steps below to run the project locally._
 6. Start Backend
    ```bash
     cd backend 
-    nodemon start or node index.js
+    nodemon start or npm start
     ```   
 <p align="right">(<a href="#top">back to top</a>)</p>
 

@@ -11,16 +11,14 @@ export default function UserSocCard({
   tags,
   setErrorMessage,
   setuserEvents,
-}:UserSocCardType) {
+}: UserSocCardType) {
   const navigate = useNavigate();
   const handleDelete = async () => {
     try {
-      const response = await api.delete(
-        `/event/delete/${id}`
-      );
+      const response = await api.delete(`/event/delete/${id}`);
       if (response.data.message === "ok") {
         setuserEvents((prevEvents: EventType[]) =>
-          prevEvents.filter((event) => event._id != id)
+          prevEvents.filter((event) => event._id != id),
         );
         navigate("/dashboard");
       } else {
@@ -43,7 +41,7 @@ export default function UserSocCard({
     }
   };
   return (
-    <div className="bg-neutral-900 " >
+    <div className="bg-neutral-900 ">
       <div
         className="bg-neutral-800    text-white rounded-lg m-4 p-4 cursor-pointer "
         onClick={goTopage}
@@ -59,7 +57,7 @@ export default function UserSocCard({
             <div
               className=" text-white font-md bg-black px-6 py-2 min-[500px]:mr-5  rounded-lg cursor-pointer hover:bg-white hover:text-black transition duration-300"
               onClick={(e) => {
-                e.stopPropagation(); 
+                e.stopPropagation();
                 handleEdit();
               }}
             >
@@ -69,7 +67,7 @@ export default function UserSocCard({
             <div
               className=" hover:text-white font-md hover:bg-black px-4 py-2 rounded-lg cursor-pointer bg-white text-black transition duration-300"
               onClick={(e) => {
-                e.stopPropagation(); 
+                e.stopPropagation();
                 handleDelete();
               }}
             >

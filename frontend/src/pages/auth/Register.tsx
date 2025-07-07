@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"
+import axios from "axios";
 import Error from "../../components/global/Error";
 import Navbar from "../../components/global/Navbar";
 import api from "../../utils/api";
@@ -11,54 +11,46 @@ export default function Register() {
   const [phone, setPhone] = useState("");
   const [description, setDescription] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage,setErrorMessage]=useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-const emailRegx=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const phoneRegx=/^\+?[1-9]\d{1,14}$/;
+  const emailRegx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegx = /^\+?[1-9]\d{1,14}$/;
 
-  
-  const navigate=useNavigate();
-  
-  
-  const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement>) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setErrorMessage("");
-    const SocietyData={
+    const SocietyData = {
       name,
       mail,
       phone,
       description,
-      status:"pending",
+      status: "pending",
       password,
+    };
+    if (!emailRegx.test(mail)) {
+      setErrorMessage("Invalid email");
+      window.scrollTo(0, 0);
+      return;
+    }
+    if (!phoneRegx.test(phone)) {
+      setErrorMessage("Invalid phone no");
+      window.scrollTo(0, 0);
+      return;
+    }
+    try {
+      const response = await api.post("/society/create", SocietyData);
+      if (response.data.message === "ok") {
+        navigate("/");
+      } else {
+        setErrorMessage(response.data.message);
 
-    }
-    if(!emailRegx.test(mail)){
-      setErrorMessage("Invalid email")
-      window.scrollTo(0,0);
-      return;
-    }
-    if(!phoneRegx.test(phone)){
-      setErrorMessage("Invalid phone no")
-      window.scrollTo(0,0);
-      return;
-    }
-    try{
-      const response=await api.post("/society/create",SocietyData);
-      if(response.data.message==="ok"){
-        navigate("/")
-      }
-      else{
-        setErrorMessage(response.data.message)
-   
         window.scrollTo(0, 0);
-          }
-  
+      }
+    } catch (err) {
+      console.log(err);
     }
-    catch(err){
-      console.log(err)
-    }
-  
-
   };
   return (
     <div>
@@ -73,7 +65,7 @@ const phoneRegx=/^\+?[1-9]\d{1,14}$/;
             <h2 className="text-2xl text-white  font-bold mb-4 text-center">
               Register Society
             </h2>
-            <form >
+            <form>
               <div className="mb-4 ">
                 <label className="block text-white font-semibold mb-2">
                   Society Name
@@ -132,9 +124,13 @@ const phoneRegx=/^\+?[1-9]\d{1,14}$/;
                 <label className="block text-white font-semibold mb-2">
                   Description
                 </label>
-                <textarea className="w-full p-2 border border-gray-300 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 " placeholder="Enter society description" onChange={(e)=>{
-                  setDescription(e.target.value)
-                }}></textarea>
+                <textarea
+                  className="w-full p-2 border border-gray-300 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 "
+                  placeholder="Enter society description"
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
+                ></textarea>
               </div>
 
               <button
