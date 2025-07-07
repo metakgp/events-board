@@ -5,6 +5,7 @@ const Event = require("../models/Event");
 const verifyToken = require("../utils/auth");
 const fs = require("fs");
 const path = require("path");
+const { isURL } = require("../utils/validation");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -99,6 +100,7 @@ router.post("/user", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
 router.patch(
   "/update/:id",
   upload.single("poster"),
@@ -118,13 +120,12 @@ router.patch(
       }
 
       let newPosterPath = oldEvent.posterurl;
-      console.log("oldEvent.posterurl:", oldEvent.posterurl);
 
       const isNewPosterUploaded =
         eventDetails.posterurl && eventDetails.posterurl !== oldEvent.posterurl;
 
       // If a new file is uploaded, delete the old image and update path
-      if (isNewPosterUploaded) {
+      if (isNewPosterUploaded && !isURL(oldEvent.posterurl)) {
         const absoluteOldPath = path.join(__dirname, "..", oldEvent.posterurl);
 
         if (fs.existsSync(absoluteOldPath)) {
@@ -157,13 +158,16 @@ router.delete("/delete/:id", async (req, res) => {
     if (!deletedEvent) {
       return res.json({ message: "Event not found " });
     }
- const posterPath=path.join(__dirname, "..", deletedEvent.posterurl);
-   if (fs.existsSync(posterPath)) {
-          fs.unlinkSync(posterPath);
-        } else {
-          console.log("File not found:", posterPath);
-        }
-      
+
+    if (!isURL(deletedEvent.posterurl)) {
+      const posterPath = path.join(__dirname, "..", deletedEvent.posterurl);
+      if (fs.existsSync(posterPath)) {
+        fs.unlinkSync(posterPath);
+      } else {
+        console.log("File not found:", posterPath);
+      }
+    }
+
     return res.json({ message: "ok" });
   } catch (err) {
     console.error("Error deleting event", err);

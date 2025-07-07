@@ -5,8 +5,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { EventType } from "../../types/event";
-
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+import { posterImage } from "../../utils/posterImage";
 
 export default function Eventcard({
   id,
@@ -49,12 +48,7 @@ export default function Eventcard({
           <div className="h-60">
             <img
               className="w-full h-full object-cover rounded-md"
-             src={
-    /^https?:\/\//.test(posterurl)
-      ? posterurl
-      : `${BACKEND_URL}${posterurl}`
-  } 
-
+              src={posterImage(posterurl)}
               alt=""
             />
           </div>
