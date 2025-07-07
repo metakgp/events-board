@@ -51,8 +51,12 @@ export default function EventPage() {
               <div className=" my-3 pt-1 w-2/5  max-[700px]:w-[93%] max-[700px]:block hidden ">
                 <img
                   className="w-full rounded-[10px]"
-                  src={`${BACKEND_URL}${eventDetails.posterurl}`}
-                  alt="Event Poster"
+                  src={
+    /^https?:\/\//.test(eventDetails.posterurl)
+      ? eventDetails.posterurl
+      : `${BACKEND_URL}${eventDetails.posterurl}`
+  }
+                    alt="Event Poster"
                 />
               </div>
 
@@ -68,7 +72,11 @@ export default function EventPage() {
             <div className=" m-3 pt-10 w-2/5  max-[700px]:hidden  block">
               <img
                 className="w-full rounded-[10px]"
-                src={`${BACKEND_URL}${eventDetails.posterurl}`}
+                 src={
+    /^https?:\/\//.test(eventDetails.posterurl)
+      ? eventDetails.posterurl
+      : `${BACKEND_URL}${eventDetails.posterurl}`
+  }
                 alt="Event Poster"
               />
             </div>

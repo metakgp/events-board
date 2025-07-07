@@ -49,7 +49,12 @@ export default function Eventcard({
           <div className="h-60">
             <img
               className="w-full h-full object-cover rounded-md"
-              src={`${BACKEND_URL}${posterurl}`}
+             src={
+    /^https?:\/\//.test(posterurl)
+      ? posterurl
+      : `${BACKEND_URL}${posterurl}`
+  } 
+
               alt=""
             />
           </div>

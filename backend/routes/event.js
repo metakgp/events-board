@@ -157,6 +157,13 @@ router.delete("/delete/:id", async (req, res) => {
     if (!deletedEvent) {
       return res.json({ message: "Event not found " });
     }
+ const posterPath=path.join(__dirname, "..", deletedEvent.posterurl);
+   if (fs.existsSync(posterPath)) {
+          fs.unlinkSync(posterPath);
+        } else {
+          console.log("File not found:", posterPath);
+        }
+      
     return res.json({ message: "ok" });
   } catch (err) {
     console.error("Error deleting event", err);
