@@ -4,8 +4,7 @@ import Loader from "../../components/global/Loader";
 import Navbar from "../../components/global/Navbar";
 import api from "../../utils/api";
 import { EventType } from "../../types/event";
-
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+import { posterImage } from "../../utils/posterImage";
 
 export default function EventPage() {
   const { id } = useParams();
@@ -51,12 +50,8 @@ export default function EventPage() {
               <div className=" my-3 pt-1 w-2/5  max-[700px]:w-[93%] max-[700px]:block hidden ">
                 <img
                   className="w-full rounded-[10px]"
-                  src={
-    /^https?:\/\//.test(eventDetails.posterurl)
-      ? eventDetails.posterurl
-      : `${BACKEND_URL}${eventDetails.posterurl}`
-  }
-                    alt="Event Poster"
+                  src={posterImage(eventDetails.posterurl)}
+                  alt="Event Poster"
                 />
               </div>
 
@@ -72,11 +67,7 @@ export default function EventPage() {
             <div className=" m-3 pt-10 w-2/5  max-[700px]:hidden  block">
               <img
                 className="w-full rounded-[10px]"
-                 src={
-    /^https?:\/\//.test(eventDetails.posterurl)
-      ? eventDetails.posterurl
-      : `${BACKEND_URL}${eventDetails.posterurl}`
-  }
+                src={posterImage(eventDetails.posterurl)}
                 alt="Event Poster"
               />
             </div>
