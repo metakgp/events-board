@@ -250,6 +250,10 @@ export default function AddEvent() {
                   rows={8}
                   onChange={(e) => setDescription(e.target.value)}
                 />
+                <p className="text-gray-400 text-xs">
+                  Surround text in asterisks (*) for bold and underscores (_)
+                  for italics.
+                </p>
               </div>
               <div className="flex space-x-4 max-[360px]:flex-col max-[360px]:space-x-0">
                 <div>

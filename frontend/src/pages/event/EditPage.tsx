@@ -265,27 +265,48 @@ export default function EditPage() {
                 </div>
               </div>
 
-              <textarea
-                className="w-full px-4 py-2 border rounded-lg"
-                placeholder="Enter description"
-                rows={8}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-
-              <div className="flex space-x-4">
-                <input
-                  className="px-4 py-2 border rounded-lg"
-                  type="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
+              <div>
+                <label className="block text-sm font-medium text-white mb-2">
+                  Description
+                </label>
+                <textarea
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent"
+                  placeholder="Enter description"
+                  name="description"
+                  rows={8}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                 />
-                <input
-                  className="px-4 py-2 border rounded-lg"
-                  type="time"
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                />
+                <p className="text-gray-400 text-xs">
+                  Surround text in asterisks (*) for bold and underscores (_)
+                  for italics.
+                </p>
+              </div>
+              <div className="flex space-x-4 max-[360px]:flex-col max-[360px]:space-x-0">
+                <div>
+                  <label className="block text-sm font-medium text-white mb-2">
+                    Date
+                  </label>
+                  <input
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent"
+                    type="date"
+                    name="date"
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                  />
+                </div>
+                <div className="">
+                  <label className="block text-sm font-medium text-white mb-2  ">
+                    Time
+                  </label>
+                  <input
+                    className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent"
+                    type="time"
+                    name="time"
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                  />
+                </div>
               </div>
 
               <button
