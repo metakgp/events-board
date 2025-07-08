@@ -5,6 +5,7 @@ import Catagories from "../../components/event/Catagories";
 import api from "../../utils/api";
 import Loader from "../../components/global/Loader";
 import { EventType } from "../../types/event";
+import Fuse from "fuse.js";
 export default function Home() {
   const [events, setEvents] = useState<EventType[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -38,14 +39,21 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    setFilteredEvents(
-      currentEvents.filter((event) => {
-        return (
-          event.title.toLowerCase().includes(searchQuery) ||
-          event.tags.some((tag) => tag.toLowerCase().includes(searchQuery))
-        );
-      }),
-    );
+    if (!searchQuery.trim()) {
+      setFilteredEvents(currentEvents);
+      setVisibleCount(eventsPerPage);
+      return;
+    }
+
+    const fuse = new Fuse(currentEvents, {
+      keys: ["title", "tags", "society"],
+      threshold: 0.4,
+    });
+
+    const results = fuse.search(searchQuery);
+    const matchedEvents = results.map((result) => result.item);
+
+    setFilteredEvents(matchedEvents);
     setVisibleCount(eventsPerPage);
   }, [searchQuery, currentEvents]);
 
