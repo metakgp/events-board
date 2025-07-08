@@ -91,13 +91,17 @@ export default class Parser {
         } else {
           currentText += "_";
         }
-      } else if (this.peekIf(/^https?:\/\//)) {
+      } else if (
+        this.peekIf(/^(?:https?:\/\/)([\w.-]+\.[a-z]{2,}(?:\/[\w.-]*)*)/i)
+      ) {
         if (currentText) {
           elements.push(currentText);
           currentText = "";
         }
         // eat until space or end of line
-        const url = this.eatIf(/^https?:\/\/[^\s]+/);
+        const url = this.eatIf(
+          /^(?:https?:\/\/)([\w.-]+\.[a-z]{2,}(?:\/[\w.-]*)*)/i,
+        );
         if (url) {
           elements.push(
             <a key={elements.length} href={url}>
