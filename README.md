@@ -17,7 +17,7 @@
 <br />
 <!-- UPDATE -->
 <div align="center">
-  <a href="https://github.com/metakgp/PROJECT_NAME">
+  <a href="https://github.com/metakgp/events-board">
      <img width="140" alt="image" src="https://raw.githubusercontent.com/metakgp/design/main/logos/logo.jpg">
   </a>
 
@@ -25,14 +25,13 @@
 
   <p align="center">
   <!-- UPDATE -->
-    <i>Site to list all upcoming eveents of kgp</i>
+    <i>A noticeboard that lists upcoming and previous society events.</i>
     <br />
-    <a href="https://UPDATE.metakgp.org">Website</a>
+    <a href="https://events.metakgp.org">Website</a>
     ·
-    <a href="https://github.com/proffapt/PROJECT_NAME/issues">Request Feature / Report Bug</a>
+    <a href="https://github.com/metakgp/events-board/issues">Request Feature / Report Bug</a>
   </p>
 </div>
-
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -51,12 +50,13 @@
 
 </details>
 
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
+
 <!-- UPDATE -->
 <div align="center">
-  <a href="https://github.com/metakgp/PROJECT_NAME">
+  <a href="https://github.com/metakgp/events-board">
     <img width="80%" alt="image" src="https://user-images.githubusercontent.com/86282911/206632547-a3b34b47-e7ae-4186-a1e6-ecda7ddb38e6.png">
   </a>
 </div>
@@ -68,12 +68,14 @@ _Detailed explaination of the project goes here_
 <div id="supports"></div>
 
 ### Supports:
+
 <!-- UPDATE -->
+
 1. Shells
-    * `bash`
-    * `zsh`
+   - `bash`
+   - `zsh`
 2. OS(s)
-    * any `*nix`[`GNU+Linux` and `Unix`]
+   - any `*nix`[`GNU+Linux` and `Unix`]
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -82,59 +84,68 @@ _Detailed explaination of the project goes here_
 To set up a local instance of the application, follow the steps below.
 
 ### Prerequisites
+
 The following are required to be installed for the project to function properly:
-<!-- UPDATE --> 
-1.Node.js
-<br>
-2.npm 
+
+<!-- UPDATE -->
+
+1. Node.js
+2. npm
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Installation
 
 _Follow the steps below to run the project locally._
+
 <!-- UPDATE -->
+
 1. Clone the repository
+
    ```sh
 
    git clone https://github.com/metakgp/events-board.git
 
    cd events-board
    ```
+
 2. Install Frontend Dependencies
    ```sh
    cd frontend
-   npm install 
+   npm install
    ```
 3. Install Backend Dependencies
    ```bash
-   cd backend 
+   cd backend
    npm install
    ```
-4. Setup enviorment variables in the  Frontend and Backend directories
+4. Setup enviorment variables in the Frontend and Backend directories
 
-   Create a ``.env`` file inside ``/frontend`` and ``/backend``  directory, And set up your environment variables. You can see .env.template for reference.
+   Create a `.env` file inside `/frontend` and `/backend` directory, And set up your environment variables. You can see .env.template for reference.
 
 5. Start Frontend
    ```bash
-    cd frontend 
+    cd frontend
     npm run dev
    ```
 6. Start Backend
-   ```bash
-    cd backend 
+   ````bash
+    cd backend
     nodemon start or npm start
-    ```   
-<p align="right">(<a href="#top">back to top</a>)</p>
-
+    ```
+   <p align="right">(<a href="#top">back to top</a>)</p>
+   ````
 
 <!-- USAGE EXAMPLES -->
+
 ## Usage
+
 <!-- UPDATE -->
+
 Use this space to show useful examples of how this project can be used. Additional screenshots, code examples and demos work well in this space.
 
 <div align="center">
-  <a href="https://github.com/metakgp/PROJECT_NAME">
+  <a href="https://github.com/metakgp/events-board">
     <img width="80%" alt="image" src="https://user-images.githubusercontent.com/86282911/206632640-40dc440e-5ef3-4893-be48-618f2bd85f37.png">
   </a>
 </div>
@@ -170,6 +181,7 @@ Use this space to show useful examples of how this project can be used. Addition
 The currently active maintainer(s) of this project.
 
 <!-- UPDATE -->
+
 - [NAME](https://github.com/GITHUB_USERNAME)
 
 ### Creator(s)
@@ -177,31 +189,32 @@ The currently active maintainer(s) of this project.
 Honoring the original creator(s) and ideator(s) of this project.
 
 <!-- UPDATE -->
+
 - [NAME](https://github.com/GITHUB_USERNAME)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Additional documentation
 
-  - [License](/LICENSE)
-  - [Code of Conduct](/.github/CODE_OF_CONDUCT.md)
-  - [Security Policy](/.github/SECURITY.md)
-  - [Contribution Guidelines](/.github/CONTRIBUTING.md)
+- [License](/LICENSE)
+- [Code of Conduct](/.github/CODE_OF_CONDUCT.md)
+- [Security Policy](/.github/SECURITY.md)
+- [Contribution Guidelines](/.github/CONTRIBUTING.md)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/metakgp/PROJECT_NAME.svg?style=for-the-badge
-[contributors-url]: https://github.com/metakgp/PROJECT_NAME/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/metakgp/PROJECT_NAME.svg?style=for-the-badge
-[forks-url]: https://github.com/metakgp/PROJECT_NAME/network/members
-[stars-shield]: https://img.shields.io/github/stars/metakgp/PROJECT_NAME.svg?style=for-the-badge
-[stars-url]: https://github.com/metakgp/PROJECT_NAME/stargazers
-[issues-shield]: https://img.shields.io/github/issues/metakgp/PROJECT_NAME.svg?style=for-the-badge
-[issues-url]: https://github.com/metakgp/PROJECT_NAME/issues
-[license-shield]: https://img.shields.io/github/license/metakgp/PROJECT_NAME.svg?style=for-the-badge
-[license-url]: https://github.com/metakgp/PROJECT_NAME/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/metakgp/events-board.svg?style=for-the-badge
+[contributors-url]: https://github.com/metakgp/events-board/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/metakgp/events-board.svg?style=for-the-badge
+[forks-url]: https://github.com/metakgp/events-board/network/members
+[stars-shield]: https://img.shields.io/github/stars/metakgp/events-board.svg?style=for-the-badge
+[stars-url]: https://github.com/metakgp/events-board/stargazers
+[issues-shield]: https://img.shields.io/github/issues/metakgp/events-board.svg?style=for-the-badge
+[issues-url]: https://github.com/metakgp/events-board/issues
+[license-shield]: https://img.shields.io/github/license/metakgp/events-board.svg?style=for-the-badge
+[license-url]: https://github.com/metakgp/events-board/blob/master/LICENSE
 [wiki-shield]: https://custom-icon-badges.demolab.com/badge/metakgp_wiki-grey?logo=metakgp_logo&style=for-the-badge
 [wiki-url]: https://wiki.metakgp.org
 [slack-url]: https://slack.metakgp.org
