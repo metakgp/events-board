@@ -65,7 +65,7 @@ export default class Parser {
           elements.push(
             <strong key={elements.length}>
               {new Parser(boldText).parseParagraph(1)}
-            </strong>
+            </strong>,
           );
         } else {
           currentText += "*";
@@ -86,7 +86,7 @@ export default class Parser {
           elements.push(
             <em key={elements.length}>
               {new Parser(italicText).parseParagraph(2)}
-            </em>
+            </em>,
           );
         } else {
           currentText += "_";
@@ -102,7 +102,7 @@ export default class Parser {
           elements.push(
             <a key={elements.length} href={url}>
               {url}
-            </a>
+            </a>,
           );
         }
       } else {
