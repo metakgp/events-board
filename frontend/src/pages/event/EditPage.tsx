@@ -337,7 +337,7 @@ export default function EditPage() {
                   </p>
                 </div>
                 <div className={`${descTab === "preview" ? "" : "hidden"}`}>
-                  <div className="bg-white p-4 rounded-lg rounded-tl-none ugc-desc h-60 overflow-y-auto">
+                  <div className="bg-white px-4 py-2 rounded-lg rounded-tl-none ugc-desc h-60 overflow-y-auto">
                     {renderMarkdown(description || "")}
                   </div>
                 </div>
