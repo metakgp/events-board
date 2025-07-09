@@ -104,7 +104,7 @@ export default class Parser {
         );
         if (url) {
           elements.push(
-            <a key={elements.length} href={url}>
+            <a key={elements.length} href={url} target="_blank">
               {url}
             </a>,
           );

@@ -23,7 +23,7 @@ body::-webkit-scrollbar {
 }
 
 .ugc-desc {
-  & p {
+  & p:not(:last-child) {
     margin-bottom: 20px;
   }
 

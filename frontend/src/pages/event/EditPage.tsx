@@ -8,6 +8,7 @@ import { jwtDecode } from "jwt-decode";
 import api from "../../utils/api";
 import Loader from "../../components/global/Loader";
 import { UserType } from "../../types/user";
+import { renderMarkdown } from "../../utils/markdown";
 export default function EditPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -265,23 +266,6 @@ export default function EditPage() {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-white mb-2">
-                  Description
-                </label>
-                <textarea
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent"
-                  placeholder="Enter description"
-                  name="description"
-                  rows={8}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-                <p className="text-gray-400 text-xs">
-                  Surround text in asterisks (*) for bold and underscores (_)
-                  for italics.
-                </p>
-              </div>
               <div className="flex space-x-4 max-[360px]:flex-col max-[360px]:space-x-0">
                 <div>
                   <label className="block text-sm font-medium text-white mb-2">
@@ -306,6 +290,31 @@ export default function EditPage() {
                     value={time}
                     onChange={(e) => setTime(e.target.value)}
                   />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-white mb-2">
+                  Description
+                </label>
+                <textarea
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent"
+                  placeholder="Enter description"
+                  name="description"
+                  rows={8}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+                <p className="text-gray-400 text-xs">
+                  Surround text in asterisks (*) for bold and underscores (_)
+                  for italics.
+                </p>
+              </div>
+              <div>
+                <p className="block text-sm font-medium text-white mb-2">
+                  Preview
+                </p>
+                <div className="bg-white p-4 rounded ugc-desc max-h-64 overflow-y-auto">
+                  {renderMarkdown(description || "")}
                 </div>
               </div>
 
