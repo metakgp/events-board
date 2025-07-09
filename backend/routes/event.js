@@ -19,7 +19,10 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage });
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 },
+});
 
 router.post("/upload", upload.single("poster"), (req, res) => {
   if (!req.file) return res.status(400).json({ error: "No file uploaded" });
@@ -108,6 +111,17 @@ router.patch(
   async (req, res) => {
     const { id } = req.params;
     const eventDetails = req.body;
+    if (
+      !eventDetails.title ||
+      !eventDetails.description ||
+      !eventDetails.date ||
+      !eventDetails.posterurl ||
+      !eventDetails.time ||
+      !eventDetails.society ||
+      !eventDetails.selectedTags
+    ) {
+      return res.json({ message: "All fields are required" });
+    }
 
     try {
       // Get the old event before updating
@@ -173,6 +187,16 @@ router.delete("/delete/:id", async (req, res) => {
     console.error("Error deleting event", err);
     return res.json({ message: "Internal Server Error" });
   }
+});
+
+router.use((err, req, res, next) => {
+  if (err.code === "LIMIT_FILE_SIZE") {
+    return res.status(400).json({ error: "File too large. Max size is 5 MB." });
+  }
+  if (err instanceof multer.MulterError) {
+    return res.status(400).json({ error: err.message });
+  }
+  next(err);
 });
 
 module.exports = router;

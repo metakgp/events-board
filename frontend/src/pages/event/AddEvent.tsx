@@ -35,6 +35,12 @@ export default function AddEvent() {
   ];
 
   useEffect(() => {
+    if (errorMessage) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [errorMessage]);
+
+  useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await api.get("/user/me");
@@ -70,8 +76,11 @@ export default function AddEvent() {
       try {
         const uploadRes = await api.post("/event/upload", formData);
         posterPath = uploadRes.data.imageUrl;
-      } catch (error) {
-        console.error("Error uploading file:", error);
+      } catch (err: any) {
+        if (err.response && err.response.data?.error) {
+          setErrorMessage(err.response.data.error);
+        }
+        console.error("Error uploading file:", err);
         return;
       }
     }
@@ -92,7 +101,6 @@ export default function AddEvent() {
       navigate("/");
     } else {
       setErrorMessage(result.data.message);
-      window.scrollTo(0, 0);
     }
   };
 
@@ -278,9 +286,9 @@ export default function AddEvent() {
                 <div className="flex">
                   <button
                     type="button"
-                    className={`px-4 py-1 rounded-tr-md rounded-tl-md ${
+                    className={`px-4 py-1 rounded-tl-md  ${
                       descTab === "write"
-                        ? "bg-blue-500 text-white"
+                        ? "bg-orange-500/60 text-white"
                         : "bg-gray-600 text-white hover:bg-gray-400"
                     }`}
                     onClick={() => setDescTab("write")}
@@ -289,9 +297,9 @@ export default function AddEvent() {
                   </button>
                   <button
                     type="button"
-                    className={`px-4 py-1 rounded-tr-md rounded-tl-md ${
+                    className={`px-4 py-1 rounded-tr-md  ${
                       descTab === "preview"
-                        ? "bg-blue-500 text-white"
+                        ? "bg-orange-500/60 text-white"
                         : "bg-gray-600 text-white hover:bg-gray-400"
                     }`}
                     onClick={() => setDescTab("preview")}
