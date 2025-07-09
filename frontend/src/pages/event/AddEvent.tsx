@@ -21,6 +21,8 @@ export default function AddEvent() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [user, setUser] = useState<UserType | null>(null);
+  const [descTab, setDescTab] = useState<"write" | "preview">("write");
+
   //predefined tags
   const availableTags = [
     "Cultural",
@@ -273,25 +275,48 @@ export default function AddEvent() {
                 <label className="block text-sm font-medium text-white mb-2">
                   Description
                 </label>
-                <textarea
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent"
-                  placeholder="Enter description"
-                  name="description"
-                  rows={8}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-                <p className="text-gray-400 text-xs">
-                  Surround text in asterisks (*) for bold and underscores (_)
-                  for italics.
-                </p>
-              </div>
-              <div>
-                <p className="block text-sm font-medium text-white mb-2">
-                  Preview
-                </p>
-                <div className="bg-white p-4 rounded ugc-desc max-h-64 overflow-y-auto">
-                  {renderMarkdown(description || "")}
+                <div className="flex">
+                  <button
+                    type="button"
+                    className={`px-4 py-1 rounded-tr-md rounded-tl-md ${
+                      descTab === "write"
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-600 text-white hover:bg-gray-400"
+                    }`}
+                    onClick={() => setDescTab("write")}
+                  >
+                    Write
+                  </button>
+                  <button
+                    type="button"
+                    className={`px-4 py-1 rounded-tr-md rounded-tl-md ${
+                      descTab === "preview"
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-600 text-white hover:bg-gray-400"
+                    }`}
+                    onClick={() => setDescTab("preview")}
+                  >
+                    Preview
+                  </button>
+                </div>
+                <div className={`${descTab === "write" ? "" : "hidden"}`}>
+                  <textarea
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg rounded-tl-none focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent"
+                    placeholder="Enter description"
+                    name="description"
+                    rows={8}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                  <p className="text-gray-400 text-xs">
+                    Surround text in asterisks (*) for bold and underscores (_)
+                    for italics.
+                  </p>
+                </div>
+                <div className={`${descTab === "preview" ? "" : "hidden"}`}>
+                  <div className="bg-white p-4 rounded-lg rounded-tl-none ugc-desc h-60 overflow-y-auto">
+                    {renderMarkdown(description || "")}
+                  </div>
                 </div>
               </div>
 
