@@ -18,7 +18,7 @@ const societySchema = new Schema({
   status: {
     type: String,
     enum: ["pending", "accepted", "rejected"],
-default: "rejected",
+    default: "rejected",
   },
   password: { type: String },
 });

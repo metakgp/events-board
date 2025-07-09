@@ -5,6 +5,7 @@ import Navbar from "../../components/global/Navbar";
 import api from "../../utils/api";
 import { EventType } from "../../types/event";
 import { posterImage } from "../../utils/posterImage";
+import { renderMarkdown } from "../../utils/markdown";
 
 export default function EventPage() {
   const { id } = useParams();
@@ -24,14 +25,6 @@ export default function EventPage() {
 
     fetchEventDetails();
   }, [id]);
-
-  const makeLinksClickable = (text: string) => {
-    const urlRegex = /(?:https?:\/\/)?([\w.-]+\.[a-z]{2,}(?:\/[\w.-]*)*)/gi;
-    return text.replace(urlRegex, (url) => {
-      const fullUrl = url.startsWith("http") ? url : `https://${url}`;
-      return `<a href="${fullUrl}" target="_blank" rel="noopener noreferrer" class="text-blue-600">${url}</a>`;
-    });
-  };
 
   return (
     <div>
@@ -55,14 +48,9 @@ export default function EventPage() {
                 />
               </div>
 
-              <p
-                className="text-xl py-2   px-2 font-poppins  text-white  animate-fadeIn max-[300px]:text-sm"
-                dangerouslySetInnerHTML={{
-                  __html: makeLinksClickable(eventDetails.description ?? "")
-                    .replace(/\n/g, "<br>")
-                    .replace(/<script.*?>.*?<\/script>/gi, ""),
-                }}
-              ></p>
+              <div className="text-xl py-2 px-2 font-poppins text-white animate-fadeIn max-[300px]:text-sm ugc-desc">
+                {renderMarkdown(eventDetails.description ?? "")}
+              </div>
             </div>
             <div className=" m-3 pt-10 w-2/5  max-[700px]:hidden  block">
               <img

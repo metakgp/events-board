@@ -21,3 +21,18 @@ body {
 body::-webkit-scrollbar {
   display: none; /* Chrome, Safari */
 }
+
+.ugc-desc {
+  & p:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  & a {
+    color: #007bff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
