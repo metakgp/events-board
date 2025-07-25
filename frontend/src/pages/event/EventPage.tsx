@@ -4,7 +4,6 @@ import Loader from "../../components/global/Loader";
 import Navbar from "../../components/global/Navbar";
 import api from "../../utils/api";
 import { EventType } from "../../types/event";
-import { posterImage } from "../../utils/posterImage";
 import { renderMarkdown } from "../../utils/markdown";
 
 export default function EventPage() {
@@ -43,7 +42,7 @@ export default function EventPage() {
               <div className=" my-3 pt-1 w-2/5  max-[700px]:w-[93%] max-[700px]:block hidden ">
                 <img
                   className="w-full rounded-[10px]"
-                  src={posterImage(eventDetails.posterurl)}
+                  src={eventDetails.posterurl}
                   alt="Event Poster"
                 />
               </div>
@@ -55,7 +54,7 @@ export default function EventPage() {
             <div className=" m-3 pt-10 w-2/5  max-[700px]:hidden  block">
               <img
                 className="w-full rounded-[10px]"
-                src={posterImage(eventDetails.posterurl)}
+                src={eventDetails.posterurl}
                 alt="Event Poster"
               />
             </div>

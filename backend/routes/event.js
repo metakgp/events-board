@@ -5,11 +5,16 @@ const Event = require("../models/Event");
 const verifyToken = require("../utils/auth");
 const fs = require("fs");
 const path = require("path");
-const { isURL } = require("../utils/validation");
+const { isURL, formatURL } = require("../utils/validation");
+const env = require("../utils/env");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/");
+    const uploadDir = path.join(
+      env.STATIC_FILE_STORAGE_LOCATION,
+      env.UPLOAD_PATH
+    );
+    cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname);
@@ -27,7 +32,7 @@ const upload = multer({
 router.post("/upload", upload.single("poster"), (req, res) => {
   if (!req.file) return res.status(400).json({ error: "No file uploaded" });
 
-  res.json({ imageUrl: `/uploads/${req.file.filename}` });
+  res.json({ imageUrl: req.file.filename });
 });
 
 router.post("/add", verifyToken, async (req, res) => {
@@ -74,8 +79,8 @@ router.post("/add", verifyToken, async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const events = await Event.find({});
-    res.status(200).json(events);
+    const events = await Event.find({}).lean();
+    res.status(200).json(events.map(formatURL));
   } catch (err) {
     res.status(500).json({ message: "Internal server error" });
   }
@@ -86,7 +91,7 @@ router.get("/page/:id", async (req, res) => {
 
   try {
     const event = await Event.findById(id);
-    res.status(200).json(event);
+    res.status(200).json(formatURL(event.toObject()));
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Internal server error" });
@@ -97,8 +102,8 @@ router.post("/user", async (req, res) => {
   try {
     const { userMail } = req.body;
 
-    const userEvents = await Event.find({ createdBy: userMail });
-    res.status(200).json({ message: "ok", userEvents });
+    const userEvents = await Event.find({ createdBy: userMail }).lean();
+    res.status(200).json({ message: "ok", userEvents: userEvents.map(formatURL) });
   } catch (err) {
     res.status(500).json({ message: "Internal server error" });
   }
@@ -140,7 +145,11 @@ router.patch(
 
       // If a new file is uploaded, delete the old image and update path
       if (isNewPosterUploaded && !isURL(oldEvent.posterurl)) {
-        const absoluteOldPath = path.join(__dirname, "..", oldEvent.posterurl);
+        const absoluteOldPath = path.join(
+          env.STATIC_FILE_STORAGE_LOCATION,
+          env.UPLOAD_PATH,
+          oldEvent.posterurl
+        );
 
         if (fs.existsSync(absoluteOldPath)) {
           fs.unlinkSync(absoluteOldPath);
@@ -174,7 +183,11 @@ router.delete("/delete/:id", async (req, res) => {
     }
 
     if (!isURL(deletedEvent.posterurl)) {
-      const posterPath = path.join(__dirname, "..", deletedEvent.posterurl);
+      const posterPath = path.join(
+        env.STATIC_FILE_STORAGE_LOCATION,
+        env.UPLOAD_PATH,
+        deletedEvent.posterurl
+      );
       if (fs.existsSync(posterPath)) {
         fs.unlinkSync(posterPath);
       } else {

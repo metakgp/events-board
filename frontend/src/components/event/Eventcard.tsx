@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { EventType } from "../../types/event";
-import { posterImage } from "../../utils/posterImage";
 
 export default function Eventcard({
   id,
@@ -48,7 +47,7 @@ export default function Eventcard({
           <div className="h-60">
             <img
               className="w-full h-full object-cover rounded-md"
-              src={posterImage(posterurl)}
+              src={posterurl}
               alt=""
             />
           </div>

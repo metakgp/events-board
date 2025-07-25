@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const env = require("../utils/env");
 
-const SECRET = process.env.JWT_SECRET || "secret";
+const SECRET = env.JWT_SECRET;
 const Society = require("../models/Society");
 const User = require("../models/User");
 
