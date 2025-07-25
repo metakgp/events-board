@@ -15,6 +15,7 @@ export default function ArchivedEvents() {
       try {
         const result = await api.get("/event/");
         setEvents(result.data);
+        console.log(result.data)
       } catch (err) {
         console.error(err);
       } finally {

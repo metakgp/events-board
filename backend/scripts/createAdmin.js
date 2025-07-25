@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 const User = require("../models/User");
-console.log(process.env.MONGO_URI);
+
 const createAdmin = async () => {
   try {
     await mongoose.connect(
