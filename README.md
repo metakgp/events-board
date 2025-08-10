@@ -40,12 +40,12 @@
 - [About The Project](#about-the-project)
   - [Supports](#supports)
 - [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
   - [Installation](#installation)
+  - [Development](#development)
 - [Usage](#usage)
 - [Contact](#contact)
   - [Maintainer(s)](#maintainers)
-  - [creators(s)](#creators)
+  - [Creators(s)](#creators)
 - [Additional documentation](#additional-documentation)
 
 </details>
@@ -65,47 +65,15 @@ _Detailed explaination of the project goes here_
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<div id="supports"></div>
-
-### Supports:
-
-<!-- UPDATE -->
-
-1. Shells
-   - `bash`
-   - `zsh`
-2. OS(s)
-   - any `*nix`[`GNU+Linux` and `Unix`]
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 ## Getting Started
 
 To set up a local instance of the application, follow the steps below.
 
-### Prerequisites
-
-The following are required to be installed for the project to function properly:
-
-<!-- UPDATE -->
-
-1. Node.js
-2. npm
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 ### Installation
 
-_Follow the steps below to run the project locally._
-
-<!-- UPDATE -->
-
 1. Clone the repository
-
    ```sh
-
    git clone https://github.com/metakgp/events-board.git
-
    cd events-board
    ```
 
@@ -119,22 +87,55 @@ _Follow the steps below to run the project locally._
    cd backend
    npm install
    ```
-4. Setup enviorment variables in the Frontend and Backend directories
+4. Setup environment variables in the Frontend and Backend directories
 
-   Create a `.env` file inside `/frontend` and `/backend` directory, And set up your environment variables. You can see .env.template for reference.
+   Create a `.env` file inside `/frontend` and `/backend` directory, And set up your environment variables. (See [Environment Variables](#environment-variables) section below for more details)
 
-5. Start Frontend
-   ```bash
-    cd frontend
-    npm run dev
-   ```
-6. Start Backend
-   ````bash
-    cd backend
-    nodemon start or npm start
-    ```
-   <p align="right">(<a href="#top">back to top</a>)</p>
-   ````
+5. Set up the database
+   - In the `/backend` directory, run the following command to run MongoDB in a Docker container:
+     ```bash
+     docker compose -f docker-compose.dev.yaml up -d
+     ```
+     Alternatively, you can run MongoDB locally if you have it installed.
+   - In the `/backend` directory, run the following command to create an admin user:
+     ```bash
+     node scripts/createAdmin.js
+     ```
+
+6. Set up static file storage
+    - Create a directory for static files (ideally outside the project directory), and set the absolute path to this directory in the `STATIC_FILE_STORAGE_LOCATION` environment variable in `/backend/.env` (e.g. `/srv/static`).
+    - Create a subdirectory for storing uploaded posters inside the static file storage directory, and set the relative path to this directory in the `UPLOAD_PATH` environment variable in `/backend/.env` (e.g. `uploads/posters`).
+
+
+### Development
+
+   - In the `/frontend` directory, run the following command to start the frontend:
+     ```bash
+     npm start
+     ```
+   - In the `/backend` directory, run the following command to start the backend:
+     ```bash
+     node index.js
+     ```
+
+
+### Environment Variables
+
+The following environment variables are required to be set in `/backend/.env` for the application to run:
+
+1. `MONGO_URI`: The MongoDB connection string.
+2. `JWT_SECRET`: A secret key used for signing JSON Web Tokens.
+3. `FRONTEND_URL`: The URL of the frontend application.
+4. `PORT`: The port on which the backend server will run.
+5. `STATIC_FILES_URL`: The URL where static files are served.
+6. `STATIC_FILE_STORAGE_LOCATION`: The absolute path where static files are stored.
+7. `UPLOAD_PATH`: The relative path where uploaded files will be stored (relative to `STATIC_FILE_STORAGE_LOCATION`).
+
+The following environment variables are required to be set in `/frontend/.env` for the application to run:
+1. `VITE_BACKEND_URL`: The URL of the backend API.
+
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 
@@ -180,17 +181,14 @@ Use this space to show useful examples of how this project can be used. Addition
 
 The currently active maintainer(s) of this project.
 
-<!-- UPDATE -->
-
-- [NAME](https://github.com/GITHUB_USERNAME)
+- [Waqib Sk](https://github.com/waqibsk)
+- [Dipam Sen](https://github.com/dipamsen)
 
 ### Creator(s)
 
 Honoring the original creator(s) and ideator(s) of this project.
 
-<!-- UPDATE -->
-
-- [NAME](https://github.com/GITHUB_USERNAME)
+- [Waqib Sk](https://github.com/waqibsk)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
