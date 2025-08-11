@@ -3,10 +3,13 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const env = require("../utils/env");
-
-const SECRET = env.JWT_SECRET;
 const Society = require("../models/Society");
 const User = require("../models/User");
+
+const ADMIN_MAIL = env.ADMIN_MAIL
+const ADMIN_PASSWORD = env.ADMIN_PASSWORD
+const SECRET = env.JWT_SECRET;
+
 
 router.post("/signin", async (req, res) => {
   try {
@@ -14,12 +17,10 @@ router.post("/signin", async (req, res) => {
     if (!mail || !password) {
       return res.json({ message: "all fields required" });
     }
-
-    const admin = await User.findOne({ mail, role: "admin" });
-    if (admin) {
+    if (mail === ADMIN_MAIL) {
       console.log("Trying to login as admin");
-      const isAdmin = await bcrypt.compare(password, admin.password);
-      if (isAdmin) {
+      
+      if (password === ADMIN_PASSWORD) {
         const token = await jwt.sign({ mail, role: "admin" }, SECRET, {
           expiresIn: "24h",
         });
