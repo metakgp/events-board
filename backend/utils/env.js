@@ -13,6 +13,8 @@ const ensureEnvVar = (name, validator, defaultValue) => {
 
 const env = {
   MONGO_URI: ensureEnvVar("MONGO_URI"),
+  ADMIN_MAIL: ensureEnvVar("ADMIN_MAIL"),
+  ADMIN_PASSWORD: ensureEnvVar("ADMIN_PASSWORD"),
   JWT_SECRET: ensureEnvVar("JWT_SECRET", null, "secret"),
   FRONTEND_URL: ensureEnvVar("FRONTEND_URL"),
   PORT: ensureEnvVar("PORT", null, 8080),
