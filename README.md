@@ -72,13 +72,13 @@ To set up a local instance of the application, follow the steps below.
 ### Installation
 
 1. Clone the repository
-   ```sh
+   ```bash
    git clone https://github.com/metakgp/events-board.git
    cd events-board
    ```
 
 2. Install Frontend Dependencies
-   ```sh
+   ```bash
    cd frontend
    npm install
    ```
@@ -97,10 +97,6 @@ To set up a local instance of the application, follow the steps below.
      docker compose -f docker-compose.dev.yaml up -d
      ```
      Alternatively, you can run MongoDB locally if you have it installed.
-   - In the `/backend` directory, run the following command to create an admin user:
-     ```bash
-     node scripts/createAdmin.js
-     ```
 
 6. Set up static file storage
     - Create a directory for static files (ideally outside the project directory), and set the absolute path to this directory in the `STATIC_FILE_STORAGE_LOCATION` environment variable in `/backend/.env` (e.g. `/srv/static`).
@@ -111,7 +107,7 @@ To set up a local instance of the application, follow the steps below.
 
    - In the `/frontend` directory, run the following command to start the frontend:
      ```bash
-     npm start
+     npm run dev
      ```
    - In the `/backend` directory, run the following command to start the backend:
      ```bash
@@ -130,26 +126,12 @@ The following environment variables are required to be set in `/backend/.env` fo
 5. `STATIC_FILES_URL`: The URL where static files are served.
 6. `STATIC_FILE_STORAGE_LOCATION`: The absolute path where static files are stored.
 7. `UPLOAD_PATH`: The relative path where uploaded files will be stored (relative to `STATIC_FILE_STORAGE_LOCATION`).
+8. `ADMIN_MAIL`: Email ID for Admin login.
+9. `ADMIN_PASSWORD`: Password for Admin login.
 
 The following environment variables are required to be set in `/frontend/.env` for the application to run:
 1. `VITE_BACKEND_URL`: The URL of the backend API.
 
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- USAGE EXAMPLES -->
-
-## Usage
-
-<!-- UPDATE -->
-
-Use this space to show useful examples of how this project can be used. Additional screenshots, code examples and demos work well in this space.
-
-<div align="center">
-  <a href="https://github.com/metakgp/events-board">
-    <img width="80%" alt="image" src="https://user-images.githubusercontent.com/86282911/206632640-40dc440e-5ef3-4893-be48-618f2bd85f37.png">
-  </a>
-</div>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
