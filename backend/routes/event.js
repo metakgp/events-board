@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadDir = path.join(
       env.STATIC_FILE_STORAGE_LOCATION,
-      env.UPLOAD_PATH
+      env.UPLOAD_PATH,
     );
     cb(null, uploadDir);
   },
@@ -103,7 +103,9 @@ router.post("/user", async (req, res) => {
     const { userMail } = req.body;
 
     const userEvents = await Event.find({ createdBy: userMail }).lean();
-    res.status(200).json({ message: "ok", userEvents: userEvents.map(formatURL) });
+    res
+      .status(200)
+      .json({ message: "ok", userEvents: userEvents.map(formatURL) });
   } catch (err) {
     res.status(500).json({ message: "Internal server error" });
   }
@@ -148,7 +150,7 @@ router.patch(
         const absoluteOldPath = path.join(
           env.STATIC_FILE_STORAGE_LOCATION,
           env.UPLOAD_PATH,
-          oldEvent.posterurl
+          oldEvent.posterurl,
         );
 
         if (fs.existsSync(absoluteOldPath)) {
@@ -186,7 +188,7 @@ router.delete("/delete/:id", async (req, res) => {
       const posterPath = path.join(
         env.STATIC_FILE_STORAGE_LOCATION,
         env.UPLOAD_PATH,
-        deletedEvent.posterurl
+        deletedEvent.posterurl,
       );
       if (fs.existsSync(posterPath)) {
         fs.unlinkSync(posterPath);

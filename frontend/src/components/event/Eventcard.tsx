@@ -28,7 +28,6 @@ export default function Eventcard({
     });
   };
   const navigate = useNavigate();
-  // console.log("id in events card", id);
   const handleClick = async () => {
     navigate(`/event-page/${id}`);
   };

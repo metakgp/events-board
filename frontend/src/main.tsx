@@ -13,6 +13,7 @@ import PrivateRoute from "./components/util/PrivateRoute.js";
 import Dashboard from "./pages/user/Dashboard";
 import EditPage from "./pages/event/EditPage.js";
 import Footer from "./components/global/Footer.js";
+import UploadLink from "./pages/event/UploadLink"
 const rootElement = document.getElementById("root");
 if (rootElement) {
   createRoot(rootElement).render(
@@ -39,6 +40,7 @@ if (rootElement) {
           <Route path="/event-page/:id" element={<EventPage />} />
           <Route path="/edit/:id" element={<EditPage />} />
           <Route path="/archive" element={<ArchivedEvents />} />
+          <Route path="/upload-link" element={<UploadLink />} />
           <Route path="/register" element={<Register />} />
           <Route path="/signin" element={<Signin />} />
           <Route

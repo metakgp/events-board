@@ -3,6 +3,7 @@ const app = express();
 const eventRoute = require("./routes/event");
 const societyRoute = require("./routes/society");
 const userRoute = require("./routes/user");
+const uploadRoutes = require("./routes/upload");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const env = require("./utils/env");
@@ -26,6 +27,7 @@ mongoose.connect(env.MONGO_URI).then(() => {
 app.use("/event", eventRoute);
 app.use("/society", societyRoute);
 app.use("/user", userRoute);
+app.use("/upload", uploadRoutes);
 
 app.listen(PORT, () => {
   console.log(`app running in port ${PORT}`);

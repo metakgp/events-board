@@ -19,7 +19,6 @@ export default function Signin() {
       password,
     };
     try {
-      console.log("hi this is api", api);
       const response = await api.post("/user/signin", userData);
       console.log(response);
       if (response.data.message === "ok") {

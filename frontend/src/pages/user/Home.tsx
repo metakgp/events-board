@@ -24,11 +24,10 @@ export default function Home() {
     const fetchEvents = async () => {
       try {
         const result = await api.get("/event/");
-
         setEvents(result.data);
         const upcomingEvents = result.data.filter(getCurrentEvents);
-        setCurrentEvents(upcomingEvents);
-        setFilteredEvents(upcomingEvents);
+        setCurrentEvents(result.data);
+        setFilteredEvents(result.data);
       } catch (err) {
         console.error(err);
       } finally {
